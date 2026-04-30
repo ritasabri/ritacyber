@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rita Sabri — AI Security & Cybersecurity Workforce Development</title>
+  <meta name="description" content="Rita Sabri is a cybersecurity educator and researcher specializing in GenAI security, the NICE Workforce Framework, and curriculum development for emerging threats." />
+  <meta property="og:title" content="Rita Sabri — Rita Cyber" />
+  <meta property="og:description" content="AI security education, GenAI threat modeling, and workforce development at the intersection of OWASP and the NICE Framework." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400&family=JetBrains+Mono:wght@400;500;700&family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink:        #0c0d0a;
+      --ink-soft:   #1a1b16;
+      --paper:      #f4f1ea;
+      --paper-warm: #e9e4d7;
+      --accent:     #c8442a;     /* burnt sienna */
+      --accent-2:   #1f3a2d;     /* deep forest */
+      --gold:       #b88a2e;
+      --rule:       #0c0d0a;
+      --muted:      #6b6a60;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 400;
+      line-height: 1.55;
+      overflow-x: hidden;
+      background-image:
+        radial-gradient(circle at 20% 0%, rgba(200,68,42,0.04), transparent 50%),
+        radial-gradient(circle at 80% 100%, rgba(31,58,45,0.05), transparent 50%);
+    }
+
+    /* ---------- noise overlay for texture ---------- */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.5;
+      z-index: 1;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.04 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ---------- top ribbon ---------- */
+    .ribbon {
+      position: relative;
+      z-index: 5;
+      background: var(--ink);
+      color: var(--paper);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 0.6rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--accent);
+    }
+
+    .ribbon .pulse {
+      display: inline-block;
+      width: 8px; height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      margin-right: 0.5rem;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%      { opacity: 0.4; transform: scale(0.7); }
+    }
+
+    /* ---------- nav ---------- */
+    nav {
+      position: relative;
+      z-index: 5;
+      padding: 1.6rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 1px solid rgba(12,13,10,0.12);
+    }
+
+    .logo {
+      font-family: 'Fraunces', serif;
+      font-weight: 800;
+      font-size: 1.4rem;
+      letter-spacing: -0.02em;
+    }
+    .logo .dot { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 2.2rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .nav-links a {
+      position: relative;
+      transition: color 0.3s ease;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 1px;
+      background: var(--accent);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* ---------- hero ---------- */
+    .hero {
+      position: relative;
+      z-index: 2;
+      padding: 5rem 2rem 6rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: end;
+    }
+
+    .hero-meta {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.74rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+    .hero-meta::before {
+      content: '';
+      width: 30px; height: 1px;
+      background: var(--accent);
+    }
+
+    h1.display {
+      font-family: 'Fraunces', serif;
+      font-weight: 300;
+      font-size: clamp(3rem, 8vw, 6.6rem);
+      line-height: 0.95;
+      letter-spacing: -0.035em;
+      margin-bottom: 2rem;
+      font-variation-settings: "opsz" 144;
+    }
+    h1.display em {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--accent);
+    }
+    h1.display .strike {
+      position: relative;
+      display: inline-block;
+    }
+
+    .hero-tag {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-size: 1.4rem;
+      max-width: 30ch;
+      color: var(--ink-soft);
+      margin-bottom: 2rem;
+      line-height: 1.4;
+    }
+
+    .hero-aside {
+      border-left: 1px solid var(--ink);
+      padding-left: 2rem;
+    }
+
+    .hero-aside p {
+      font-size: 1.05rem;
+      max-width: 42ch;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      background: var(--ink);
+      color: var(--paper);
+      padding: 1rem 1.6rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+      border: 1px solid var(--ink);
+    }
+    .hero-cta:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      transform: translate(-2px, -2px);
+      box-shadow: 4px 4px 0 var(--ink);
+    }
+    .hero-cta .arrow {
+      transition: transform 0.3s ease;
+    }
+    .hero-cta:hover .arrow {
+      transform: translateX(4px);
+    }
+
+    /* ---------- credentials ticker ---------- */
+    .ticker {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 1.5rem 0;
+      overflow: hidden;
+      position: relative;
+      z-index: 2;
+      border-top: 1px solid var(--accent);
+      border-bottom: 1px solid var(--accent);
+    }
+
+    .ticker-track {
+      display: flex;
+      gap: 4rem;
+      animation: scroll 40s linear infinite;
+      white-space: nowrap;
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-size: 1.6rem;
+      font-weight: 400;
+      width: max-content;
+    }
+
+    .ticker-track span {
+      display: flex;
+      align-items: center;
+      gap: 4rem;
+    }
+    .ticker-track span::after {
+      content: '◆';
+      color: var(--accent);
+      font-style: normal;
+      font-size: 0.8rem;
+    }
+
+    @keyframes scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ---------- section base ---------- */
+    section {
+      position: relative;
+      z-index: 2;
+      padding: 7rem 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.74rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+    .eyebrow::before {
+      content: '';
+      width: 24px; height: 1px;
+      background: var(--accent);
+    }
+
+    h2.section-title {
+      font-family: 'Fraunces', serif;
+      font-weight: 400;
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      line-height: 1;
+      letter-spacing: -0.025em;
+      margin-bottom: 3rem;
+      max-width: 18ch;
+    }
+    h2.section-title em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    /* ---------- about ---------- */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .about-text p {
+      font-size: 1.15rem;
+      margin-bottom: 1.4rem;
+      line-height: 1.65;
+    }
+    .about-text p:first-child::first-letter {
+      font-family: 'Fraunces', serif;
+      font-size: 4.5rem;
+      float: left;
+      line-height: 0.9;
+      padding: 0.3rem 0.6rem 0 0;
+      color: var(--accent);
+      font-weight: 400;
+    }
+
+    .about-card {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 2.5rem;
+      position: relative;
+    }
+    .about-card::before {
+      content: '';
+      position: absolute;
+      top: -8px; left: -8px;
+      right: 16px; bottom: 16px;
+      border: 1px solid var(--accent);
+      z-index: -1;
+    }
+
+    .about-card h3 {
+      font-family: 'Fraunces', serif;
+      font-weight: 400;
+      font-style: italic;
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--paper);
+    }
+
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(244,241,234,0.12);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+    }
+    .stat-row:last-child { border-bottom: none; }
+    .stat-row .label {
+      color: rgba(244,241,234,0.6);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.72rem;
+    }
+    .stat-row .value {
+      color: var(--paper);
+      font-weight: 500;
+    }
+    .stat-row .value em {
+      color: var(--accent);
+      font-style: normal;
+    }
+
+    /* ---------- focus areas ---------- */
+    .focus-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border-top: 1px solid var(--ink);
+      border-left: 1px solid var(--ink);
+    }
+
+    .focus-card {
+      padding: 2.5rem 2rem;
+      border-right: 1px solid var(--ink);
+      border-bottom: 1px solid var(--ink);
+      background: var(--paper-warm);
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s ease;
+    }
+    .focus-card:hover {
+      background: var(--ink);
+      color: var(--paper);
+    }
+    .focus-card:hover .focus-num {
+      color: var(--accent);
+    }
+
+    .focus-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      margin-bottom: 1.5rem;
+      transition: color 0.3s ease;
+    }
+
+    .focus-card h3 {
+      font-family: 'Fraunces', serif;
+      font-weight: 400;
+      font-size: 1.7rem;
+      line-height: 1.15;
+      letter-spacing: -0.015em;
+      margin-bottom: 1rem;
+    }
+    .focus-card h3 em {
+      font-style: italic;
+    }
+
+    .focus-card p {
+      font-size: 0.95rem;
+      line-height: 1.55;
+      max-width: 32ch;
+    }
+
+    /* ---------- featured talk ---------- */
+    .talk-section {
+      background: var(--ink);
+      color: var(--paper);
+      max-width: none;
+      padding: 7rem 2rem;
+      margin: 0;
+      position: relative;
+    }
+    .talk-section .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .talk-section .eyebrow {
+      color: var(--accent);
+    }
+
+    .talk-section h2.section-title {
+      color: var(--paper);
+    }
+    .talk-section h2.section-title em {
+      color: var(--accent);
+    }
+
+    .talk-card {
+      border: 1px solid rgba(244,241,234,0.18);
+      padding: 3rem;
+      position: relative;
+      background: linear-gradient(135deg, rgba(200,68,42,0.06), transparent 60%);
+    }
+
+    .talk-card .conference-name {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    .talk-card h3 {
+      font-family: 'Fraunces', serif;
+      font-weight: 400;
+      font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+    }
+    .talk-card h3 em { font-style: italic; color: var(--accent); }
+
+    .talk-meta {
+      display: flex;
+      gap: 2rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      color: rgba(244,241,234,0.7);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid rgba(244,241,234,0.12);
+    }
+
+    .talk-card p {
+      font-size: 1rem;
+      line-height: 1.65;
+      color: rgba(244,241,234,0.85);
+      margin-bottom: 1.5rem;
+    }
+
+    .talk-frameworks {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+    .framework-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      padding: 0.4rem 0.8rem;
+      border: 1px solid rgba(244,241,234,0.25);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(244,241,234,0.85);
+    }
+
+    /* ---------- credentials section ---------- */
+    .creds-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0;
+      border-left: 1px solid var(--ink);
+      border-top: 1px solid var(--ink);
+    }
+
+    .cred-card {
+      padding: 2.5rem 2rem;
+      border-right: 1px solid var(--ink);
+      border-bottom: 1px solid var(--ink);
+      display: flex;
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    .cred-mark {
+      flex-shrink: 0;
+      width: 50px; height: 50px;
+      border: 1px solid var(--ink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-size: 1.3rem;
+      color: var(--accent);
+      background: var(--paper);
+    }
+
+    .cred-content h4 {
+      font-family: 'Fraunces', serif;
+      font-weight: 400;
+      font-size: 1.3rem;
+      line-height: 1.2;
+      margin-bottom: 0.4rem;
+      letter-spacing: -0.01em;
+    }
+    .cred-content .cred-org {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.74rem;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.7rem;
+    }
+    .cred-content p {
+      font-size: 0.92rem;
+      line-height: 1.55;
+      color: var(--ink-soft);
+    }
+
+    /* ---------- philosophy / pull quote ---------- */
+    .quote-section {
+      padding: 8rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .quote-section blockquote {
+      font-family: 'Fraunces', serif;
+      font-weight: 300;
+      font-style: italic;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      max-width: 22ch;
+      margin: 0 auto 2rem;
+      position: relative;
+    }
+
+    .quote-section blockquote::before {
+      content: '"';
+      position: absolute;
+      top: -3rem; left: -2rem;
+      font-size: 8rem;
+      color: var(--accent);
+      opacity: 0.25;
+      font-weight: 800;
+    }
+
+    .quote-section blockquote em {
+      color: var(--accent);
+      font-style: italic;
+    }
+
+    .quote-attribution {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ---------- contact ---------- */
+    .contact-section {
+      background: var(--paper-warm);
+      max-width: none;
+      padding: 7rem 2rem;
+      margin: 0;
+    }
+    .contact-section .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .contact-text p {
+      font-size: 1.1rem;
+      max-width: 40ch;
+      margin-bottom: 1.4rem;
+      line-height: 1.6;
+    }
+
+    .contact-list {
+      list-style: none;
+    }
+    .contact-list li {
+      padding: 1.5rem 0;
+      border-bottom: 1px solid rgba(12,13,10,0.15);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: padding 0.3s ease;
+    }
+    .contact-list li:hover {
+      padding-left: 1rem;
+    }
+    .contact-list li:hover .contact-link {
+      color: var(--accent);
+    }
+    .contact-list .label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.74rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .contact-list .contact-link {
+      font-family: 'Fraunces', serif;
+      font-size: 1.3rem;
+      letter-spacing: -0.01em;
+      transition: color 0.3s ease;
+    }
+
+    /* ---------- footer ---------- */
+    footer {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 3rem 2rem 2rem;
+      position: relative;
+      z-index: 2;
+    }
+    footer .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    footer .logo { color: var(--paper); }
+    footer p {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.74rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(244,241,234,0.55);
+    }
+
+    /* ---------- responsive ---------- */
+    @media (max-width: 980px) {
+      .hero,
+      .about-grid,
+      .talk-section .container,
+      .contact-section .container { grid-template-columns: 1fr; gap: 2.5rem; }
+      .focus-grid { grid-template-columns: 1fr; }
+      .creds-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      section { padding: 4.5rem 1.5rem; }
+      .hero { padding: 3.5rem 1.5rem; }
+      .hero-aside { border-left: none; border-top: 1px solid var(--ink); padding: 2rem 0 0 0; }
+      h1.display { font-size: clamp(2.5rem, 12vw, 4.5rem); }
+      .ribbon { padding: 0.5rem 1.2rem; font-size: 0.65rem; }
+      .ribbon .right-meta { display: none; }
+    }
+
+    /* ---------- entrance animations ---------- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP RIBBON -->
+  <div class="ribbon">
+    <span><span class="pulse"></span>Currently — NICE Conference Speaker · Philadelphia · June 2026</span>
+    <span class="right-meta">Washington, D.C. — 38.9072° N · 77.0369° W</span>
+  </div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="logo">Rita<span class="dot">.</span>Cyber</a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#focus">Focus</a>
+      <a href="#talk">NICE 2026</a>
+      <a href="#credentials">Credentials</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+      <div class="hero-meta">Rita Sabri / AI Security Researcher &amp; Educator</div>
+      <h1 class="display">
+        Building the<br />
+        people who<br />
+        will <em>defend</em><br />
+        what comes next.
+      </h1>
+      <p class="hero-tag">
+        Cybersecurity workforce development at the intersection of GenAI, the NICE Framework, and OWASP.
+      </p>
+    </div>
+    <aside class="hero-aside">
+      <p>
+        I'm Rita — a cybersecurity researcher and educator working at the edge of AI security, threat modeling for generative systems, and the workforce pipelines that have to keep pace with both. M.S. in Computer Science from the University of Pennsylvania. NICE Community of Interest member. OWASP contributor.
+      </p>
+      <p>
+        My work centers a single problem: the threat landscape is moving faster than the curricula and training programs designed to prepare people for it. I build the patches.
+      </p>
+      <a href="#talk" class="hero-cta">
+        Read about NICE 2026 <span class="arrow">→</span>
+      </a>
+    </aside>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker">
+    <div class="ticker-track">
+      <span>NICE Framework <span></span></span>
+      <span>OWASP Agentic Top 10 <span></span></span>
+      <span>GenAI Red Teaming <span></span></span>
+      <span>Cloud Security <span></span></span>
+      <span>Curriculum Patch <span></span></span>
+      <span>University of Pennsylvania <span></span></span>
+      <span>Cybersecurity Workforce <span></span></span>
+      <!-- duplicated for seamless loop -->
+      <span>NICE Framework <span></span></span>
+      <span>OWASP Agentic Top 10 <span></span></span>
+      <span>GenAI Red Teaming <span></span></span>
+      <span>Cloud Security <span></span></span>
+      <span>Curriculum Patch <span></span></span>
+      <span>University of Pennsylvania <span></span></span>
+      <span>Cybersecurity Workforce <span></span></span>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about" class="reveal">
+    <div class="eyebrow">001 / About</div>
+    <h2 class="section-title">A practitioner working at the <em>seam</em> between AI security and workforce development.</h2>
+
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          My research and practice sit at the intersection of three accelerating shifts: the rapid integration of generative AI into critical infrastructure, the corresponding emergence of new attack surfaces (prompt injection, agentic exploits, model supply chain risks), and the structural lag in how the cybersecurity workforce is trained to meet them.
+        </p>
+        <p>
+          I work across frameworks — NICE for workforce mapping, OWASP for threat taxonomies, MITRE for adversary modeling — to design educational interventions that translate cutting-edge security research into something practitioners and students can actually act on. My current focus is the GenAI threat surface and how organizations build the human capacity to manage it.
+        </p>
+        <p>
+          I'm based in Washington, D.C., and I'm currently developing this work into a doctoral research agenda focused on AI security and cybersecurity education.
+        </p>
+      </div>
+
+      <div class="about-card">
+        <h3>At a glance</h3>
+        <div class="stat-row">
+          <span class="label">Education</span>
+          <span class="value">M.S., <em>UPenn</em></span>
+        </div>
+        <div class="stat-row">
+          <span class="label">Affiliation</span>
+          <span class="value">NICE Community of Interest</span>
+        </div>
+        <div class="stat-row">
+          <span class="label">Open Source</span>
+          <span class="value">OWASP Contributor</span>
+        </div>
+        <div class="stat-row">
+          <span class="label">Speaking</span>
+          <span class="value">NICE Conference <em>2026</em></span>
+        </div>
+        <div class="stat-row">
+          <span class="label">Languages</span>
+          <span class="value">EN · FR · AR</span>
+        </div>
+        <div class="stat-row">
+          <span class="label">Based</span>
+          <span class="value">Washington, D.C.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOCUS AREAS -->
+  <section id="focus" class="reveal">
+    <div class="eyebrow">002 / Focus areas</div>
+    <h2 class="section-title">Four threads, one <em>through-line</em>.</h2>
+
+    <div class="focus-grid">
+      <div class="focus-card">
+        <div class="focus-num">→ 01</div>
+        <h3>GenAI <em>threat modeling</em></h3>
+        <p>
+          Adversarial techniques against language models and agentic systems — prompt injection, jailbreaks, indirect injection, model exfiltration — and what defending them looks like in practice.
+        </p>
+      </div>
+      <div class="focus-card">
+        <div class="focus-num">→ 02</div>
+        <h3>The NICE <em>Framework</em></h3>
+        <p>
+          Mapping evolving cybersecurity work roles, knowledge, skills, and tasks to actual training pathways — and arguing for new ones the framework hasn't yet captured.
+        </p>
+      </div>
+      <div class="focus-card">
+        <div class="focus-num">→ 03</div>
+        <h3>OWASP <em>contribution</em></h3>
+        <p>
+          Active contributor to the Agentic AI Top 10 and adjacent OWASP workstreams. Translating community-driven threat research into educational content for the next generation of defenders.
+        </p>
+      </div>
+      <div class="focus-card">
+        <div class="focus-num">→ 04</div>
+        <h3>The <em>Curriculum Patch</em></h3>
+        <p>
+          A framework for layering current threat content onto existing cybersecurity courses without waiting for textbooks to catch up — closing the gap between threat research and the classroom.
+        </p>
+      </div>
+      <div class="focus-card">
+        <div class="focus-num">→ 05</div>
+        <h3>Cloud security <em>education</em></h3>
+        <p>
+          Building cloud-native, scenario-based labs that mirror the environments graduates actually walk into — not the abstract networks of legacy curricula.
+        </p>
+      </div>
+      <div class="focus-card">
+        <div class="focus-num">→ 06</div>
+        <h3>International <em>cooperation</em></h3>
+        <p>
+          Cybersecurity workforce development across the Francophone world, with particular interest in how frameworks like NICE adapt to national strategies and capacity-building goals.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED TALK -->
+  <section id="talk" class="talk-section reveal">
+    <div class="container">
+      <div>
+        <div class="eyebrow">003 / Featured</div>
+        <h2 class="section-title">Speaking at <em>NICE</em> 2026.</h2>
+        <p style="font-size:1.05rem; max-width:38ch; line-height:1.65; color: rgba(244,241,234,0.8); margin-bottom: 1.5rem;">
+          The NICE Conference convenes the cybersecurity education and workforce community in Philadelphia each year. My session focuses on how K-12 and early-career cybersecurity programs must evolve to meet a threat landscape now defined by cloud-native infrastructure and generative AI.
+        </p>
+        <p style="font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent);">
+          June 1–3, 2026 · Philadelphia, PA
+        </p>
+      </div>
+
+      <div class="talk-card">
+        <div class="conference-name">NICE Conference / 2026</div>
+        <h3>Future-Ready K-12 Cybersecurity: Cloud, GenAI, and the <em>Curriculum Patch</em></h3>
+        <div class="talk-meta">
+          <span>Session · 50 min</span>
+          <span>Practitioner Track</span>
+        </div>
+        <p>
+          A session on closing the lag between the cybersecurity threat landscape and the curricula meant to prepare people for it. I introduce the <strong>Curriculum Patch</strong> framework — a method for layering current threat content onto existing courses — and walk through two student-facing artifacts I've developed: a structured <strong>Red Team Model for GenAI</strong> and the <strong>Bank Heist Lab</strong>, an incident response simulation built around a modern, AI-augmented attack chain.
+        </p>
+        <div class="talk-frameworks">
+          <span class="framework-pill">NICE Framework</span>
+          <span class="framework-pill">OWASP LLM Top 10</span>
+          <span class="framework-pill">MITRE ATLAS</span>
+          <span class="framework-pill">CISA</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CREDENTIALS -->
+  <section id="credentials" class="reveal">
+    <div class="eyebrow">004 / Credentials &amp; affiliations</div>
+    <h2 class="section-title">The <em>receipts</em>.</h2>
+
+    <div class="creds-grid">
+      <div class="cred-card">
+        <div class="cred-mark">P</div>
+        <div class="cred-content">
+          <h4>M.S., Computer Science</h4>
+          <div class="cred-org">University of Pennsylvania</div>
+          <p>Graduate work in computer science with concentration relevant to security, systems, and applied research.</p>
+        </div>
+      </div>
+      <div class="cred-card">
+        <div class="cred-mark">N</div>
+        <div class="cred-content">
+          <h4>NICE Community of Interest Member</h4>
+          <div class="cred-org">NIST · National Initiative for Cybersecurity Education</div>
+          <p>Active participant in the federal community shaping the U.S. cybersecurity workforce framework and standards.</p>
+        </div>
+      </div>
+      <div class="cred-card">
+        <div class="cred-mark">O</div>
+        <div class="cred-content">
+          <h4>OWASP Contributor</h4>
+          <div class="cred-org">Agentic AI Top 10 · LLM Top 10 workstreams</div>
+          <p>Contributing to the open-source threat taxonomies that the global AI security community is building in real time.</p>
+        </div>
+      </div>
+      <div class="cred-card">
+        <div class="cred-mark">N</div>
+        <div class="cred-content">
+          <h4>NICE Conference 2026 Speaker</h4>
+          <div class="cred-org">Philadelphia · June 2026</div>
+          <p>Selected to present on AI-era cybersecurity curriculum design and the Curriculum Patch framework.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PULL QUOTE -->
+  <section class="quote-section reveal">
+    <blockquote>
+      The threat surface evolves in months. The training pipeline evolves in years. <em>That gap is the work.</em>
+    </blockquote>
+    <div class="quote-attribution">— Rita Sabri</div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact-section reveal">
+    <div class="container">
+      <div class="contact-text">
+        <div class="eyebrow">005 / Get in touch</div>
+        <h2 class="section-title">Open to <em>research</em>, <em>speaking</em>, and <em>collaboration</em>.</h2>
+        <p>
+          I'm currently exploring partnerships in cybersecurity workforce development, AI security education, and international capacity-building — particularly with institutions working on national or regional digital strategy.
+        </p>
+        <p>
+          If your work touches the NICE Framework, GenAI security, or building cybersecurity talent pipelines: I'd love to hear from you.
+        </p>
+      </div>
+
+      <ul class="contact-list">
+        <li>
+          <span class="label">Email</span>
+          <a class="contact-link" href="mailto:hello@ritacyber.com">hello@ritacyber.com</a>
+        </li>
+        <li>
+          <span class="label">LinkedIn</span>
+          <a class="contact-link" href="#" target="_blank" rel="noopener">/in/ritasabri</a>
+        </li>
+        <li>
+          <span class="label">GitHub</span>
+          <a class="contact-link" href="#" target="_blank" rel="noopener">@ritacyber</a>
+        </li>
+        <li>
+          <span class="label">Conferences</span>
+          <a class="contact-link" href="#talk">NICE 2026 · Philadelphia</a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <a href="#" class="logo">Rita<span class="dot" style="color: var(--accent);">.</span>Cyber</a>
+      <p>© 2026 Rita Sabri · Washington, D.C.</p>
+    </div>
+  </footer>
+
+  <script>
+    // simple intersection observer for reveal animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
