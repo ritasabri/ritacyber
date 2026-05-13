@@ -1,1036 +1,1716 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rita Sabri — AI Security & Cybersecurity Workforce Development</title>
-  <meta name="description" content="Rita Sabri is a cybersecurity educator and researcher specializing in GenAI security, the NICE Workforce Framework, and curriculum development for emerging threats." />
-  <meta property="og:title" content="Rita Sabri — Rita Cyber" />
-  <meta property="og:description" content="AI security education, GenAI threat modeling, and workforce development at the intersection of OWASP and the NICE Framework." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400&family=JetBrains+Mono:wght@400;500;700&family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --ink:        #0c0d0a;
-      --ink-soft:   #1a1b16;
-      --paper:      #f4f1ea;
-      --paper-warm: #e9e4d7;
-      --accent:     #c8442a;     /* burnt sienna */
-      --accent-2:   #1f3a2d;     /* deep forest */
-      --gold:       #b88a2e;
-      --rule:       #0c0d0a;
-      --muted:      #6b6a60;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CyberScholars — Cybersecurity Tutoring for Middle & High School Students</title>
+<meta name="description" content="Cybersecurity and computer science tutoring from a UPenn graduate and full-time DC teacher. NCL prep, AP CS coursework help, AI research, and intro courses for total beginners. DMV area & online." />
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-    html { scroll-behavior: smooth; }
+<style>
+  :root {
+    --bg: #f5f1ea;
+    --bg-warm: #ede5d3;
+    --paper: #faf6ee;
+    --ink: #0f1714;
+    --ink-soft: #2a322e;
+    --forest: #1a3328;
+    --forest-deep: #0d1f17;
+    --terracotta: #d96239;
+    --terracotta-deep: #b94c25;
+    --gold: #c9a45c;
+    --muted: #6b6b63;
+    --line: rgba(15, 23, 20, 0.12);
+    --line-soft: rgba(15, 23, 20, 0.06);
+  }
 
-    body {
-      background: var(--paper);
-      color: var(--ink);
-      font-family: 'Inter Tight', sans-serif;
-      font-weight: 400;
-      line-height: 1.55;
-      overflow-x: hidden;
-      background-image:
-        radial-gradient(circle at 20% 0%, rgba(200,68,42,0.04), transparent 50%),
-        radial-gradient(circle at 80% 100%, rgba(31,58,45,0.05), transparent 50%);
-    }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
-    /* ---------- noise overlay for texture ---------- */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      opacity: 0.5;
-      z-index: 1;
-      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.04 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-    }
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-    a { color: inherit; text-decoration: none; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.55;
+    overflow-x: hidden;
+    cursor: none;
+  }
 
-    /* ---------- top ribbon ---------- */
-    .ribbon {
-      position: relative;
-      z-index: 5;
-      background: var(--ink);
-      color: var(--paper);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.72rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      padding: 0.6rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid var(--accent);
-    }
+  /* Custom cursor */
+  .cursor-dot, .cursor-ring {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.25s ease, height 0.25s ease, background 0.25s ease;
+    mix-blend-mode: difference;
+  }
+  .cursor-dot {
+    width: 6px;
+    height: 6px;
+    background: #fff;
+    border-radius: 50%;
+  }
+  .cursor-ring {
+    width: 32px;
+    height: 32px;
+    border: 1px solid rgba(255,255,255,0.5);
+    border-radius: 50%;
+    transition: transform 0.15s ease-out, width 0.25s, height 0.25s;
+  }
+  .cursor-ring.hover {
+    width: 60px;
+    height: 60px;
+    border-color: #fff;
+  }
+  @media (max-width: 960px), (pointer: coarse) {
+    body { cursor: auto; }
+    .cursor-dot, .cursor-ring { display: none; }
+  }
 
-    .ribbon .pulse {
-      display: inline-block;
-      width: 8px; height: 8px;
-      background: var(--accent);
-      border-radius: 50%;
-      margin-right: 0.5rem;
-      animation: pulse 2s ease-in-out infinite;
-    }
+  /* ============ TOP BAR ============ */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 22px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.3s ease, padding 0.3s ease, border-color 0.3s;
+    border-bottom: 1px solid transparent;
+  }
 
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50%      { opacity: 0.4; transform: scale(0.7); }
-    }
+  nav.scrolled {
+    background: rgba(245, 241, 234, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    padding: 14px 40px;
+    border-bottom: 1px solid var(--line-soft);
+  }
 
-    /* ---------- nav ---------- */
-    nav {
-      position: relative;
-      z-index: 5;
-      padding: 1.6rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      border-bottom: 1px solid rgba(12,13,10,0.12);
-    }
+  .logo {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 20px;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: -0.3px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
 
-    .logo {
-      font-family: 'Fraunces', serif;
-      font-weight: 800;
-      font-size: 1.4rem;
-      letter-spacing: -0.02em;
-    }
-    .logo .dot { color: var(--accent); }
+  .logo-mark {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--terracotta);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-style: italic;
+    font-size: 14px;
+  }
 
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    align-items: center;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.2px;
+    position: relative;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:not(.btn-book)::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: -6px;
+    width: 0;
+    height: 1px;
+    background: var(--terracotta);
+    transition: width 0.3s ease;
+  }
+  .nav-links a:not(.btn-book):hover::after { width: 100%; }
+  .nav-links a:not(.btn-book):hover { color: var(--ink); }
+
+  .btn-book {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 22px;
+    background: var(--ink);
+    color: var(--bg) !important;
+    border-radius: 999px;
+    font-size: 13.5px !important;
+    font-weight: 500 !important;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    isolation: isolate;
+  }
+  .btn-book::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--terracotta);
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+    z-index: -1;
+  }
+  .btn-book:hover::before { transform: translateY(0); }
+
+  .nav-toggle { display: none; background: none; border: none; cursor: pointer; }
+  .nav-toggle span {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    background: var(--ink);
+    margin: 5px 0;
+  }
+
+  /* ============ HERO ============ */
+  .hero {
+    min-height: 100vh;
+    padding: 140px 40px 80px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .hero-bg { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+
+  .hero-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.4;
+    animation: drift 20s ease-in-out infinite;
+  }
+  .hero-blob.b1 { width: 600px; height: 600px; background: var(--terracotta); top: -200px; right: -150px; }
+  .hero-blob.b2 { width: 500px; height: 500px; background: var(--forest); bottom: -200px; left: -100px; animation-delay: -10s; opacity: 0.25; }
+  .hero-blob.b3 { width: 400px; height: 400px; background: var(--gold); top: 40%; right: 30%; animation-delay: -5s; opacity: 0.2; }
+  @keyframes drift {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(40px, -30px) scale(1.05); }
+    66% { transform: translate(-30px, 40px) scale(0.95); }
+  }
+
+  .hero-grid-overlay {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--line-soft) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
+    background-size: 80px 80px;
+    pointer-events: none;
+    mask-image: radial-gradient(circle at 50% 50%, black 30%, transparent 80%);
+    -webkit-mask-image: radial-gradient(circle at 50% 50%, black 30%, transparent 80%);
+  }
+
+  .hero-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 80px;
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .hero-meta-left { display: flex; align-items: center; gap: 12px; }
+
+  .live-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--terracotta);
+    position: relative;
+  }
+  .live-dot::after {
+    content: '';
+    position: absolute; inset: -4px;
+    border-radius: 50%;
+    border: 1px solid var(--terracotta);
+    animation: ripple 2s ease-out infinite;
+  }
+  @keyframes ripple {
+    0% { transform: scale(0.8); opacity: 1; }
+    100% { transform: scale(2); opacity: 0; }
+  }
+
+  h1.hero-headline {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(48px, 9vw, 130px);
+    font-weight: 300;
+    line-height: 0.98;
+    letter-spacing: -3px;
+    color: var(--ink);
+    margin-bottom: 60px;
+    max-width: 1200px;
+  }
+
+  h1.hero-headline .word {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(60px);
+    animation: wordIn 1s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+  }
+  h1.hero-headline .word:nth-child(1) { animation-delay: 0.1s; }
+  h1.hero-headline .word:nth-child(2) { animation-delay: 0.2s; }
+  h1.hero-headline .word:nth-child(3) { animation-delay: 0.3s; }
+  h1.hero-headline .word:nth-child(4) { animation-delay: 0.4s; }
+  h1.hero-headline .word:nth-child(5) { animation-delay: 0.5s; }
+  h1.hero-headline .word:nth-child(6) { animation-delay: 0.6s; }
+  h1.hero-headline .word:nth-child(7) { animation-delay: 0.7s; }
+  h1.hero-headline .word:nth-child(8) { animation-delay: 0.8s; }
+  h1.hero-headline .word:nth-child(9) { animation-delay: 0.9s; }
+
+  h1.hero-headline .italic {
+    font-style: italic;
+    color: var(--terracotta);
+    font-weight: 400;
+  }
+
+  @keyframes wordIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-bottom {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: end;
+    opacity: 0;
+    animation: fadeIn 1s ease 1s forwards;
+  }
+  @keyframes fadeIn { to { opacity: 1; } }
+
+  .hero-sub {
+    font-size: 19px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+    max-width: 480px;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 24px;
+  }
+
+  .btn-magnetic {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    padding: 22px 36px;
+    background: var(--ink);
+    color: var(--bg);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    border-radius: 999px;
+    transition: transform 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
+    will-change: transform;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .btn-magnetic::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: var(--terracotta);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+    z-index: -1;
+  }
+  .btn-magnetic:hover::before { transform: scaleX(1); }
+
+  .btn-magnetic .arrow {
+    display: inline-block;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--bg);
+    color: var(--ink);
+    position: relative;
+    transition: transform 0.3s ease;
+  }
+  .btn-magnetic .arrow::before {
+    content: '↗';
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px;
+  }
+  .btn-magnetic:hover .arrow { transform: rotate(45deg); color: var(--terracotta); }
+
+  .hero-tagline {
+    font-size: 13px;
+    color: var(--muted);
+    text-align: right;
+    max-width: 240px;
+    line-height: 1.5;
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    opacity: 0;
+    animation: fadeIn 1s ease 1.6s forwards;
+  }
+  .scroll-indicator::after {
+    content: '';
+    width: 1px; height: 40px;
+    background: linear-gradient(to bottom, var(--muted), transparent);
+    animation: scrollLine 2s ease-in-out infinite;
+  }
+  @keyframes scrollLine {
+    0%, 100% { transform: scaleY(0.3); transform-origin: top; }
+    50% { transform: scaleY(1); transform-origin: top; }
+  }
+
+  /* ============ STAT BAND ============ */
+  .stat-band {
+    padding: 100px 40px;
+    background: var(--ink);
+    color: var(--bg);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .stat-band-bg {
+    position: absolute; inset: 0;
+    opacity: 0.03;
+    background-image:
+      radial-gradient(circle at 20% 30%, var(--terracotta), transparent 40%),
+      radial-gradient(circle at 80% 70%, var(--gold), transparent 40%);
+  }
+
+  .stat-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .stat-eyebrow {
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .stat-eyebrow::before {
+    content: '';
+    width: 40px; height: 1px;
+    background: var(--terracotta);
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    padding-top: 60px;
+  }
+
+  .stat-label {
+    font-size: 13px;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 18px;
+    letter-spacing: 0.5px;
+  }
+
+  .stat-number {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(48px, 6vw, 88px);
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -2px;
+    color: var(--bg);
+    display: flex;
+    align-items: baseline;
+  }
+
+  .stat-number .suffix {
+    color: var(--terracotta);
+    font-style: italic;
+    margin-left: 6px;
+  }
+
+  /* ============ GENERIC SECTION ============ */
+  section { padding: 140px 40px; position: relative; }
+
+  .section-inner { max-width: 1400px; margin: 0 auto; }
+
+  .section-header { margin-bottom: 80px; }
+
+  .section-eyebrow {
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .section-eyebrow::before {
+    content: '';
+    width: 40px; height: 1px;
+    background: var(--terracotta);
+  }
+
+  h2.section-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(40px, 6vw, 84px);
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -1.5px;
+    color: var(--ink);
+    max-width: 1000px;
+  }
+
+  h2.section-title .italic {
+    font-style: italic;
+    color: var(--terracotta);
+  }
+
+  /* ============ ABOUT / PURPOSE ============ */
+  .purpose-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: start;
+  }
+
+  .purpose-text p {
+    font-size: 18px;
+    color: var(--ink-soft);
+    margin-bottom: 24px;
+    line-height: 1.7;
+    max-width: 520px;
+  }
+
+  .purpose-quote {
+    background: var(--paper);
+    padding: 48px;
+    border-radius: 8px;
+    border: 1px solid var(--line-soft);
+    position: relative;
+  }
+
+  .purpose-quote::before {
+    content: '“';
+    font-family: 'Fraunces', serif;
+    position: absolute;
+    top: 20px; left: 32px;
+    font-size: 100px;
+    line-height: 1;
+    color: var(--terracotta);
+    opacity: 0.4;
+  }
+
+  .purpose-quote-text {
+    font-family: 'Fraunces', serif;
+    font-size: 26px;
+    font-weight: 400;
+    line-height: 1.35;
+    color: var(--ink);
+    font-style: italic;
+    margin-top: 40px;
+    margin-bottom: 32px;
+  }
+
+  .purpose-attrib {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+  }
+
+  .purpose-avatar {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: var(--forest);
+    color: var(--bg);
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .purpose-name { font-weight: 500; color: var(--ink); font-size: 15px; }
+  .purpose-role { font-size: 13px; color: var(--muted); }
+
+  /* ============ VIDEO SECTION (replaces values grid) ============ */
+  .videos { background: var(--bg-warm); }
+
+  .videos-intro {
+    font-size: 18px;
+    color: var(--ink-soft);
+    max-width: 580px;
+    margin-top: 32px;
+    line-height: 1.7;
+  }
+
+  .video-single {
+    max-width: 920px;
+    margin: 80px auto 0;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--line-soft);
+    box-shadow: 0 40px 80px -40px rgba(15,23,20,0.3);
+    transition: transform 0.5s cubic-bezier(0.215, 0.61, 0.355, 1), box-shadow 0.5s ease;
+  }
+
+  .video-single:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 50px 100px -40px rgba(15,23,20,0.4);
+  }
+
+  .video-thumbnail {
+    position: relative;
+    aspect-ratio: 16/9;
+    background: var(--ink);
+    overflow: hidden;
+  }
+
+  /* When a video is embedded, replace the placeholder block below.
+     See instructions at the bottom of this file for how to add YouTube/Vimeo. */
+  .video-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    color: rgba(255,255,255,0.6);
+    background:
+      linear-gradient(135deg, rgba(217,98,57,0.4), transparent 60%),
+      linear-gradient(45deg, var(--forest-deep), var(--ink));
+  }
+
+  .video-placeholder::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 30% 40%, rgba(255,255,255,0.05), transparent 50%),
+      radial-gradient(circle at 70% 70%, rgba(217,98,57,0.1), transparent 50%);
+  }
+
+  .play-button {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    transition: transform 0.3s, background 0.3s;
+    box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);
+  }
+  .video-single:hover .play-button {
+    transform: scale(1.1);
+    background: var(--terracotta);
+  }
+  .play-button::before {
+    content: '';
+    width: 0; height: 0;
+    border-left: 14px solid var(--ink);
+    border-top: 9px solid transparent;
+    border-bottom: 9px solid transparent;
+    margin-left: 4px;
+    transition: border-left-color 0.3s;
+  }
+  .video-single:hover .play-button::before { border-left-color: white; }
+
+  .video-placeholder-label {
+    position: relative;
+    z-index: 1;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+  }
+
+  /* ============ PROGRAMS ============ */
+  .programs-list {
+    margin-top: 80px;
+  }
+
+  .program-row {
+    display: grid;
+    grid-template-columns: 60px 1fr auto;
+    align-items: center;
+    gap: 40px;
+    padding: 48px 0;
+    border-top: 1px solid var(--line);
+    transition: padding 0.4s ease;
+    position: relative;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .program-row:last-child { border-bottom: 1px solid var(--line); }
+
+  .program-row::before {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; top: 0; bottom: 0;
+    background: linear-gradient(to right, transparent, var(--paper), transparent);
+    opacity: 0;
+    transition: opacity 0.4s;
+    z-index: -1;
+  }
+
+  .program-row:hover::before { opacity: 1; }
+  .program-row:hover { padding-left: 16px; padding-right: 16px; }
+  .program-row:hover .program-arrow {
+    transform: translateX(8px) rotate(-45deg);
+    background: var(--terracotta);
+    color: white;
+    border-color: var(--terracotta);
+  }
+
+  .program-num {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    color: var(--terracotta);
+    font-size: 16px;
+  }
+
+  .program-info h3 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(28px, 3.5vw, 46px);
+    font-weight: 400;
+    line-height: 1.05;
+    color: var(--ink);
+    margin-bottom: 12px;
+    letter-spacing: -1px;
+    transition: color 0.3s, font-style 0.3s;
+  }
+
+  .program-row:hover .program-info h3 {
+    font-style: italic;
+    color: var(--terracotta);
+  }
+
+  .program-meta {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    color: var(--muted);
+    font-size: 13.5px;
+    flex-wrap: wrap;
+  }
+
+  .program-tag {
+    display: inline-flex;
+    padding: 4px 12px;
+    background: var(--bg-warm);
+    border-radius: 999px;
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+
+  .program-arrow {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+    font-size: 18px;
+    color: var(--ink);
+  }
+
+  /* ============ PRICING ============ */
+  .pricing {
+    background: var(--ink);
+    color: var(--bg);
+  }
+
+  .pricing .section-title { color: var(--bg); }
+  .pricing .section-eyebrow { color: var(--terracotta); }
+  .pricing .section-eyebrow::before { background: var(--terracotta); }
+
+  .pricing-intro {
+    font-size: 19px;
+    color: rgba(255,255,255,0.7);
+    max-width: 560px;
+    margin-top: 32px;
+    line-height: 1.6;
+  }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 80px;
+  }
+
+  .price-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 40px 36px;
+    transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .price-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top right, rgba(217, 98, 57, 0.15), transparent 50%);
+    opacity: 0;
+    transition: opacity 0.5s;
+  }
+  .price-card:hover::before { opacity: 1; }
+  .price-card:hover {
+    border-color: var(--terracotta);
+    transform: translateY(-6px);
+  }
+
+  .price-card.popular {
+    background: var(--paper);
+    color: var(--ink);
+    border-color: var(--paper);
+  }
+
+  .popular-tag {
+    position: absolute;
+    top: 24px; right: 24px;
+    background: var(--terracotta);
+    color: white;
+    font-size: 11px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .price-name {
+    font-family: 'Fraunces', serif;
+    font-size: 26px;
+    font-weight: 400;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+  }
+
+  .price-format {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 40px;
+  }
+  .price-card.popular .price-format { color: var(--muted); }
+
+  .price-amount {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    margin-bottom: 6px;
+    font-family: 'Fraunces', serif;
+  }
+
+  .price-currency { font-size: 24px; font-weight: 400; }
+  .price-number { font-size: 64px; font-weight: 300; line-height: 1; letter-spacing: -3px; }
+  .price-unit { font-size: 15px; color: rgba(255,255,255,0.5); font-family: 'Inter', sans-serif; }
+  .price-card.popular .price-unit { color: var(--muted); }
+
+  .price-starting {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 36px;
+    font-style: italic;
+  }
+  .price-card.popular .price-starting { color: var(--muted); }
+
+  .price-features {
+    list-style: none;
+    margin-bottom: 36px;
+    flex-grow: 1;
+  }
+
+  .price-features li {
+    padding: 12px 0;
+    font-size: 14.5px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.8);
+  }
+  .price-card.popular .price-features li {
+    border-bottom-color: var(--line);
+    color: var(--ink-soft);
+  }
+
+  .price-features .check {
+    color: var(--terracotta);
+    flex-shrink: 0;
+    font-weight: 500;
+  }
+
+  .price-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 24px;
+    background: var(--terracotta);
+    color: white;
+    border-radius: 999px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: all 0.3s;
+  }
+  .price-cta:hover { background: var(--terracotta-deep); }
+  .price-cta .arrow-mini { transition: transform 0.3s; }
+  .price-cta:hover .arrow-mini { transform: translateX(4px); }
+
+  .pricing-note {
+    margin-top: 56px;
+    text-align: center;
+    color: rgba(255,255,255,0.5);
+    font-style: italic;
+    font-size: 15px;
+  }
+
+  /* ============ FAQ ============ */
+  .faq-list { margin-top: 60px; }
+
+  .faq-item { border-top: 1px solid var(--line); }
+  .faq-item:last-child { border-bottom: 1px solid var(--line); }
+
+  .faq-q {
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    padding: 36px 0;
+    cursor: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 32px;
+    font-family: 'Fraunces', serif;
+    font-size: clamp(20px, 2.2vw, 28px);
+    font-weight: 400;
+    color: var(--ink);
+    transition: color 0.3s;
+    letter-spacing: -0.3px;
+  }
+
+  .faq-item:hover .faq-q { color: var(--terracotta); }
+  .faq-item.open .faq-q { color: var(--terracotta); font-style: italic; }
+
+  .faq-toggle {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+    flex-shrink: 0;
+    color: var(--ink);
+    font-size: 16px;
+  }
+
+  .faq-item.open .faq-toggle {
+    background: var(--terracotta);
+    color: white;
+    border-color: var(--terracotta);
+    transform: rotate(45deg);
+  }
+
+  .faq-a {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(0.65, 0, 0.35, 1), padding 0.5s ease;
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    max-width: 720px;
+  }
+
+  .faq-item.open .faq-a {
+    max-height: 400px;
+    padding: 0 0 36px;
+  }
+
+  /* ============ FINAL CTA ============ */
+  .final-cta {
+    background: var(--bg-warm);
+    padding: 160px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .final-cta::before, .final-cta::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.3;
+  }
+  .final-cta::before { width: 400px; height: 400px; background: var(--terracotta); top: -150px; left: -100px; }
+  .final-cta::after { width: 500px; height: 500px; background: var(--forest); bottom: -200px; right: -100px; opacity: 0.2; }
+
+  .final-cta-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  .final-cta h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(40px, 6vw, 80px);
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -2px;
+    color: var(--ink);
+    margin-bottom: 32px;
+  }
+
+  .final-cta h2 .italic {
+    font-style: italic;
+    color: var(--terracotta);
+  }
+
+  .final-cta p {
+    font-size: 19px;
+    color: var(--ink-soft);
+    margin-bottom: 48px;
+    max-width: 580px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+  }
+
+  .final-email { margin-top: 32px; font-size: 14px; color: var(--muted); }
+  .final-email a {
+    color: var(--terracotta);
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    margin-left: 6px;
+  }
+
+  /* ============ FOOTER ============ */
+  footer {
+    background: var(--ink);
+    color: rgba(255,255,255,0.7);
+    padding: 80px 40px 32px;
+  }
+
+  .footer-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 60px;
+    padding-bottom: 60px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .footer-brand .logo { color: var(--bg); }
+  .footer-brand p {
+    margin-top: 16px;
+    font-size: 14.5px;
+    max-width: 320px;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.6;
+  }
+
+  .footer-brand a.email {
+    color: var(--terracotta);
+    text-decoration: none;
+    margin-top: 16px;
+    display: inline-block;
+    font-size: 14.5px;
+  }
+
+  .footer-col h4 {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--terracotta);
+    margin-bottom: 22px;
+    font-weight: 400;
+  }
+
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: 12px; }
+  .footer-col a {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+  }
+  .footer-col a:hover { color: var(--terracotta); }
+
+  .footer-bottom {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding-top: 32px;
+    display: flex;
+    justify-content: space-between;
+    color: rgba(255,255,255,0.4);
+    font-size: 12.5px;
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 960px) {
+    nav { padding: 18px 24px; }
+    nav.scrolled { padding: 12px 24px; }
+    .nav-toggle { display: block; }
     .nav-links {
-      display: flex;
-      gap: 2.2rem;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-    .nav-links a {
-      position: relative;
-      transition: color 0.3s ease;
-    }
-    .nav-links a:hover { color: var(--accent); }
-    .nav-links a::after {
-      content: '';
+      display: none;
       position: absolute;
-      bottom: -4px; left: 0;
-      width: 0; height: 1px;
-      background: var(--accent);
-      transition: width 0.3s ease;
-    }
-    .nav-links a:hover::after { width: 100%; }
-
-    /* ---------- hero ---------- */
-    .hero {
-      position: relative;
-      z-index: 2;
-      padding: 5rem 2rem 6rem;
-      max-width: 1400px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: end;
-    }
-
-    .hero-meta {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.74rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.7rem;
-    }
-    .hero-meta::before {
-      content: '';
-      width: 30px; height: 1px;
-      background: var(--accent);
-    }
-
-    h1.display {
-      font-family: 'Fraunces', serif;
-      font-weight: 300;
-      font-size: clamp(3rem, 8vw, 6.6rem);
-      line-height: 0.95;
-      letter-spacing: -0.035em;
-      margin-bottom: 2rem;
-      font-variation-settings: "opsz" 144;
-    }
-    h1.display em {
-      font-style: italic;
-      font-weight: 400;
-      color: var(--accent);
-    }
-    h1.display .strike {
-      position: relative;
-      display: inline-block;
-    }
-
-    .hero-tag {
-      font-family: 'Fraunces', serif;
-      font-style: italic;
-      font-size: 1.4rem;
-      max-width: 30ch;
-      color: var(--ink-soft);
-      margin-bottom: 2rem;
-      line-height: 1.4;
-    }
-
-    .hero-aside {
-      border-left: 1px solid var(--ink);
-      padding-left: 2rem;
-    }
-
-    .hero-aside p {
-      font-size: 1.05rem;
-      max-width: 42ch;
-      margin-bottom: 1.5rem;
-    }
-
-    .hero-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.7rem;
-      background: var(--ink);
-      color: var(--paper);
-      padding: 1rem 1.6rem;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.78rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      transition: all 0.3s ease;
-      border: 1px solid var(--ink);
-    }
-    .hero-cta:hover {
-      background: var(--accent);
-      border-color: var(--accent);
-      transform: translate(-2px, -2px);
-      box-shadow: 4px 4px 0 var(--ink);
-    }
-    .hero-cta .arrow {
-      transition: transform 0.3s ease;
-    }
-    .hero-cta:hover .arrow {
-      transform: translateX(4px);
-    }
-
-    /* ---------- credentials ticker ---------- */
-    .ticker {
-      background: var(--ink);
-      color: var(--paper);
-      padding: 1.5rem 0;
-      overflow: hidden;
-      position: relative;
-      z-index: 2;
-      border-top: 1px solid var(--accent);
-      border-bottom: 1px solid var(--accent);
-    }
-
-    .ticker-track {
-      display: flex;
-      gap: 4rem;
-      animation: scroll 40s linear infinite;
-      white-space: nowrap;
-      font-family: 'Fraunces', serif;
-      font-style: italic;
-      font-size: 1.6rem;
-      font-weight: 400;
-      width: max-content;
-    }
-
-    .ticker-track span {
-      display: flex;
-      align-items: center;
-      gap: 4rem;
-    }
-    .ticker-track span::after {
-      content: '◆';
-      color: var(--accent);
-      font-style: normal;
-      font-size: 0.8rem;
-    }
-
-    @keyframes scroll {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
-
-    /* ---------- section base ---------- */
-    section {
-      position: relative;
-      z-index: 2;
-      padding: 7rem 2rem;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-
-    .eyebrow {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.74rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.7rem;
-    }
-    .eyebrow::before {
-      content: '';
-      width: 24px; height: 1px;
-      background: var(--accent);
-    }
-
-    h2.section-title {
-      font-family: 'Fraunces', serif;
-      font-weight: 400;
-      font-size: clamp(2.2rem, 5vw, 4rem);
-      line-height: 1;
-      letter-spacing: -0.025em;
-      margin-bottom: 3rem;
-      max-width: 18ch;
-    }
-    h2.section-title em {
-      font-style: italic;
-      color: var(--accent);
-    }
-
-    /* ---------- about ---------- */
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1.3fr;
-      gap: 5rem;
-      align-items: start;
-    }
-
-    .about-text p {
-      font-size: 1.15rem;
-      margin-bottom: 1.4rem;
-      line-height: 1.65;
-    }
-    .about-text p:first-child::first-letter {
-      font-family: 'Fraunces', serif;
-      font-size: 4.5rem;
-      float: left;
-      line-height: 0.9;
-      padding: 0.3rem 0.6rem 0 0;
-      color: var(--accent);
-      font-weight: 400;
-    }
-
-    .about-card {
-      background: var(--ink);
-      color: var(--paper);
-      padding: 2.5rem;
-      position: relative;
-    }
-    .about-card::before {
-      content: '';
-      position: absolute;
-      top: -8px; left: -8px;
-      right: 16px; bottom: 16px;
-      border: 1px solid var(--accent);
-      z-index: -1;
-    }
-
-    .about-card h3 {
-      font-family: 'Fraunces', serif;
-      font-weight: 400;
-      font-style: italic;
-      font-size: 1.5rem;
-      margin-bottom: 1.5rem;
-      color: var(--paper);
-    }
-
-    .stat-row {
-      display: flex;
-      justify-content: space-between;
-      padding: 1rem 0;
-      border-bottom: 1px solid rgba(244,241,234,0.12);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.85rem;
-    }
-    .stat-row:last-child { border-bottom: none; }
-    .stat-row .label {
-      color: rgba(244,241,234,0.6);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      font-size: 0.72rem;
-    }
-    .stat-row .value {
-      color: var(--paper);
-      font-weight: 500;
-    }
-    .stat-row .value em {
-      color: var(--accent);
-      font-style: normal;
-    }
-
-    /* ---------- focus areas ---------- */
-    .focus-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0;
-      border-top: 1px solid var(--ink);
-      border-left: 1px solid var(--ink);
-    }
-
-    .focus-card {
-      padding: 2.5rem 2rem;
-      border-right: 1px solid var(--ink);
-      border-bottom: 1px solid var(--ink);
-      background: var(--paper-warm);
-      position: relative;
-      overflow: hidden;
-      transition: background 0.3s ease;
-    }
-    .focus-card:hover {
-      background: var(--ink);
-      color: var(--paper);
-    }
-    .focus-card:hover .focus-num {
-      color: var(--accent);
-    }
-
-    .focus-num {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.85rem;
-      color: var(--accent);
-      letter-spacing: 0.1em;
-      margin-bottom: 1.5rem;
-      transition: color 0.3s ease;
-    }
-
-    .focus-card h3 {
-      font-family: 'Fraunces', serif;
-      font-weight: 400;
-      font-size: 1.7rem;
-      line-height: 1.15;
-      letter-spacing: -0.015em;
-      margin-bottom: 1rem;
-    }
-    .focus-card h3 em {
-      font-style: italic;
-    }
-
-    .focus-card p {
-      font-size: 0.95rem;
-      line-height: 1.55;
-      max-width: 32ch;
-    }
-
-    /* ---------- featured talk ---------- */
-    .talk-section {
-      background: var(--ink);
-      color: var(--paper);
-      max-width: none;
-      padding: 7rem 2rem;
-      margin: 0;
-      position: relative;
-    }
-    .talk-section .container {
-      max-width: 1400px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1.4fr;
-      gap: 4rem;
-      align-items: center;
-    }
-
-    .talk-section .eyebrow {
-      color: var(--accent);
-    }
-
-    .talk-section h2.section-title {
-      color: var(--paper);
-    }
-    .talk-section h2.section-title em {
-      color: var(--accent);
-    }
-
-    .talk-card {
-      border: 1px solid rgba(244,241,234,0.18);
-      padding: 3rem;
-      position: relative;
-      background: linear-gradient(135deg, rgba(200,68,42,0.06), transparent 60%);
-    }
-
-    .talk-card .conference-name {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.78rem;
-      letter-spacing: 0.16em;
-      color: var(--accent);
-      text-transform: uppercase;
-      margin-bottom: 1.5rem;
-    }
-
-    .talk-card h3 {
-      font-family: 'Fraunces', serif;
-      font-weight: 400;
-      font-size: clamp(1.6rem, 2.8vw, 2.4rem);
-      line-height: 1.15;
-      letter-spacing: -0.02em;
-      margin-bottom: 1.5rem;
-    }
-    .talk-card h3 em { font-style: italic; color: var(--accent); }
-
-    .talk-meta {
-      display: flex;
-      gap: 2rem;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.78rem;
-      color: rgba(244,241,234,0.7);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: 2rem;
-      padding-bottom: 2rem;
-      border-bottom: 1px solid rgba(244,241,234,0.12);
-    }
-
-    .talk-card p {
-      font-size: 1rem;
-      line-height: 1.65;
-      color: rgba(244,241,234,0.85);
-      margin-bottom: 1.5rem;
-    }
-
-    .talk-frameworks {
-      display: flex;
-      gap: 0.6rem;
-      flex-wrap: wrap;
-      margin-top: 2rem;
-    }
-    .framework-pill {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.7rem;
-      padding: 0.4rem 0.8rem;
-      border: 1px solid rgba(244,241,234,0.25);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: rgba(244,241,234,0.85);
-    }
-
-    /* ---------- credentials section ---------- */
-    .creds-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 0;
-      border-left: 1px solid var(--ink);
-      border-top: 1px solid var(--ink);
-    }
-
-    .cred-card {
-      padding: 2.5rem 2rem;
-      border-right: 1px solid var(--ink);
-      border-bottom: 1px solid var(--ink);
-      display: flex;
-      gap: 1.5rem;
-      align-items: start;
-    }
-
-    .cred-mark {
-      flex-shrink: 0;
-      width: 50px; height: 50px;
-      border: 1px solid var(--ink);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Fraunces', serif;
-      font-style: italic;
-      font-size: 1.3rem;
-      color: var(--accent);
+      top: 100%; left: 0; right: 0;
+      flex-direction: column;
       background: var(--paper);
+      padding: 28px 24px;
+      gap: 20px;
+      border-bottom: 1px solid var(--line);
     }
+    .nav-links.open { display: flex; }
 
-    .cred-content h4 {
-      font-family: 'Fraunces', serif;
-      font-weight: 400;
-      font-size: 1.3rem;
-      line-height: 1.2;
-      margin-bottom: 0.4rem;
-      letter-spacing: -0.01em;
-    }
-    .cred-content .cred-org {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.74rem;
-      color: var(--accent);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-bottom: 0.7rem;
-    }
-    .cred-content p {
-      font-size: 0.92rem;
-      line-height: 1.55;
-      color: var(--ink-soft);
-    }
+    .hero { padding: 130px 24px 60px; }
+    .hero-meta { margin-bottom: 50px; flex-direction: column; gap: 12px; align-items: flex-start; }
+    .hero-bottom { grid-template-columns: 1fr; gap: 40px; }
+    .hero-actions { align-items: flex-start; }
 
-    /* ---------- philosophy / pull quote ---------- */
-    .quote-section {
-      padding: 8rem 2rem;
-      max-width: 1100px;
-      margin: 0 auto;
-      text-align: center;
-    }
+    section { padding: 90px 24px; }
+    .stat-band { padding: 70px 24px; }
+    .stats-grid { grid-template-columns: 1fr 1fr; gap: 30px; }
 
-    .quote-section blockquote {
-      font-family: 'Fraunces', serif;
-      font-weight: 300;
-      font-style: italic;
-      font-size: clamp(1.8rem, 4vw, 3rem);
-      line-height: 1.25;
-      letter-spacing: -0.02em;
-      color: var(--ink);
-      max-width: 22ch;
-      margin: 0 auto 2rem;
-      position: relative;
-    }
+    .purpose-grid { grid-template-columns: 1fr; gap: 50px; }
+    .purpose-quote { padding: 32px; }
+    .purpose-quote-text { font-size: 20px; }
 
-    .quote-section blockquote::before {
-      content: '"';
-      position: absolute;
-      top: -3rem; left: -2rem;
-      font-size: 8rem;
-      color: var(--accent);
-      opacity: 0.25;
-      font-weight: 800;
-    }
+    .video-single { margin-top: 50px; }
 
-    .quote-section blockquote em {
-      color: var(--accent);
-      font-style: italic;
+    .program-row {
+      grid-template-columns: auto 1fr auto;
+      gap: 20px;
+      padding: 32px 0;
     }
+    .program-row:hover { padding-left: 0; padding-right: 0; }
+    .program-num { font-size: 13px; }
+    .program-arrow { width: 44px; height: 44px; }
 
-    .quote-attribution {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.78rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
+    .pricing-grid { grid-template-columns: 1fr; gap: 20px; }
+    .price-card { padding: 32px 28px; }
 
-    /* ---------- contact ---------- */
-    .contact-section {
-      background: var(--paper-warm);
-      max-width: none;
-      padding: 7rem 2rem;
-      margin: 0;
-    }
-    .contact-section .container {
-      max-width: 1400px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: center;
-    }
+    .footer-inner { grid-template-columns: 1fr 1fr; gap: 40px; }
+    .footer-bottom { flex-direction: column; gap: 8px; }
 
-    .contact-text p {
-      font-size: 1.1rem;
-      max-width: 40ch;
-      margin-bottom: 1.4rem;
-      line-height: 1.6;
-    }
+    .scroll-indicator { display: none; }
+  }
 
-    .contact-list {
-      list-style: none;
-    }
-    .contact-list li {
-      padding: 1.5rem 0;
-      border-bottom: 1px solid rgba(12,13,10,0.15);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: padding 0.3s ease;
-    }
-    .contact-list li:hover {
-      padding-left: 1rem;
-    }
-    .contact-list li:hover .contact-link {
-      color: var(--accent);
-    }
-    .contact-list .label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.74rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-    .contact-list .contact-link {
-      font-family: 'Fraunces', serif;
-      font-size: 1.3rem;
-      letter-spacing: -0.01em;
-      transition: color 0.3s ease;
-    }
-
-    /* ---------- footer ---------- */
-    footer {
-      background: var(--ink);
-      color: var(--paper);
-      padding: 3rem 2rem 2rem;
-      position: relative;
-      z-index: 2;
-    }
-    footer .container {
-      max-width: 1400px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-    footer .logo { color: var(--paper); }
-    footer p {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.74rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: rgba(244,241,234,0.55);
-    }
-
-    /* ---------- responsive ---------- */
-    @media (max-width: 980px) {
-      .hero,
-      .about-grid,
-      .talk-section .container,
-      .contact-section .container { grid-template-columns: 1fr; gap: 2.5rem; }
-      .focus-grid { grid-template-columns: 1fr; }
-      .creds-grid { grid-template-columns: 1fr; }
-      .nav-links { display: none; }
-      section { padding: 4.5rem 1.5rem; }
-      .hero { padding: 3.5rem 1.5rem; }
-      .hero-aside { border-left: none; border-top: 1px solid var(--ink); padding: 2rem 0 0 0; }
-      h1.display { font-size: clamp(2.5rem, 12vw, 4.5rem); }
-      .ribbon { padding: 0.5rem 1.2rem; font-size: 0.65rem; }
-      .ribbon .right-meta { display: none; }
-    }
-
-    /* ---------- entrance animations ---------- */
-    .reveal {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-    }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  </style>
+  /* Reveal animation */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 1s cubic-bezier(0.215, 0.61, 0.355, 1), transform 1s cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal.delay-1 { transition-delay: 0.1s; }
+  .reveal.delay-2 { transition-delay: 0.2s; }
+  .reveal.delay-3 { transition-delay: 0.3s; }
+</style>
 </head>
 <body>
 
-  <!-- TOP RIBBON -->
-  <div class="ribbon">
-    <span><span class="pulse"></span>Currently — NICE Conference Speaker · Philadelphia · June 2026</span>
-    <span class="right-meta">Washington, D.C. — 38.9072° N · 77.0369° W</span>
+<!-- Custom cursor -->
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
+
+<!-- ============ NAV ============ -->
+<nav id="nav">
+  <a href="#" class="logo">
+    <span class="logo-mark">C</span>
+    CyberScholars
+  </a>
+  <button class="nav-toggle" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">About</a></li>
+    <li><a href="#videos">Meet Rita</a></li>
+    <li><a href="#programs">Programs</a></li>
+    <li><a href="#pricing">Sessions</a></li>
+    <li><a href="#" class="btn-book book-link" data-hover>Book Free Consultation</a></li>
+  </ul>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="hero-bg">
+    <div class="hero-blob b1"></div>
+    <div class="hero-blob b2"></div>
+    <div class="hero-blob b3"></div>
+  </div>
+  <div class="hero-grid-overlay"></div>
+
+  <div class="hero-inner">
+    <div class="hero-meta">
+      <div class="hero-meta-left">
+        <span class="live-dot"></span>
+        <span>Now booking · Spring 2026</span>
+      </div>
+      <div>UPenn Graduate · DMV + Online</div>
+    </div>
+
+    <h1 class="hero-headline">
+      <span class="word">Cybersecurity</span>
+      <span class="word italic">tutoring,</span>
+      <br>
+      <span class="word">taught</span>
+      <span class="word">by</span>
+      <span class="word">a</span>
+      <span class="word italic">teacher.</span>
+    </h1>
+
+    <div class="hero-bottom">
+      <p class="hero-sub">
+        I'm a full-time cybersecurity teacher in DC. Outside of school, I tutor middle and high schoolers in cybersecurity and computer science — beginners who are just curious, students who need help with AP CS, and kids serious about competitions and college.
+      </p>
+      <div class="hero-actions">
+        <a href="#" class="btn-magnetic book-link" data-magnetic data-hover>
+          Book a free consultation
+          <span class="arrow"></span>
+        </a>
+        <p class="hero-tagline">A 20-minute call. No pitch — just a conversation about your student.</p>
+      </div>
+    </div>
   </div>
 
-  <!-- NAV -->
-  <nav>
-    <a href="#" class="logo">Rita<span class="dot">.</span>Cyber</a>
-    <div class="nav-links">
-      <a href="#about">About</a>
-      <a href="#focus">Focus</a>
-      <a href="#talk">NICE 2026</a>
-      <a href="#credentials">Credentials</a>
-      <a href="#contact">Contact</a>
-    </div>
-  </nav>
+  <div class="scroll-indicator">Scroll</div>
+</header>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-left">
-      <div class="hero-meta">Rita Sabri / AI Security Researcher &amp; Educator</div>
-      <h1 class="display">
-        Building the<br />
-        people who<br />
-        will <em>defend</em><br />
-        what comes next.
-      </h1>
-      <p class="hero-tag">
-        Cybersecurity workforce development at the intersection of GenAI, the NICE Framework, and OWASP.
-      </p>
+<!-- ============ STAT BAND ============ -->
+<section class="stat-band">
+  <div class="stat-band-bg"></div>
+  <div class="stat-inner">
+    <div class="stat-eyebrow reveal">By the numbers</div>
+    <div class="stats-grid">
+      <div class="stat reveal delay-1">
+        <div class="stat-label">Students taught</div>
+        <div class="stat-number"><span class="counter" data-target="50">0</span><span class="suffix">+</span></div>
+      </div>
+      <div class="stat reveal delay-2">
+        <div class="stat-label">Years in the classroom</div>
+        <div class="stat-number"><span class="counter" data-target="5">0</span><span class="suffix">+</span></div>
+      </div>
+      <div class="stat reveal delay-3">
+        <div class="stat-label">Programs offered</div>
+        <div class="stat-number"><span class="counter" data-target="4">0</span></div>
+      </div>
+      <div class="stat reveal delay-3">
+        <div class="stat-label">Starting at</div>
+        <div class="stat-number">$<span class="counter" data-target="100">0</span><span class="suffix">/hr</span></div>
+      </div>
     </div>
-    <aside class="hero-aside">
-      <p>
-        I'm Rita — a cybersecurity researcher and educator working at the edge of AI security, threat modeling for generative systems, and the workforce pipelines that have to keep pace with both. M.S. in Computer Science from the University of Pennsylvania. NICE Community of Interest member. OWASP contributor.
-      </p>
-      <p>
-        My work centers a single problem: the threat landscape is moving faster than the curricula and training programs designed to prepare people for it. I build the patches.
-      </p>
-      <a href="#talk" class="hero-cta">
-        Read about NICE 2026 <span class="arrow">→</span>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section id="about">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">About Rita</div>
+      <h2 class="section-title">Hi, I'm Rita —<br>and I <span class="italic">teach for a living.</span></h2>
+    </div>
+
+    <div class="purpose-grid">
+      <div class="purpose-text reveal">
+        <p>
+          I teach computer science and cybersecurity full-time at a high school here in DC. AP Computer Science Principles, PLTW Cybersecurity, the works. Most days I'm with about 100 students.
+        </p>
+        <p>
+          CyberScholars is what I do on evenings and weekends — smaller, one-on-one or small group, for students whose families want more time with a real teacher. Some are competition-bound. Some are starting from zero. The work looks different for each one.
+        </p>
+        <p>
+          I went to UPenn for my Master's in CS. I've taught for over five years. Tutoring isn't a side project for me — it's an extension of what I already do every day.
+        </p>
+      </div>
+      <div class="purpose-quote reveal delay-1">
+        <p class="purpose-quote-text">
+          Every student I work with gets the same thing: a teacher who's paying attention, and a plan that actually fits them.
+        </p>
+        <div class="purpose-attrib">
+          <div class="purpose-avatar">R</div>
+          <div>
+            <div class="purpose-name">Rita Sabri</div>
+            <div class="purpose-role">Founder · UPenn M.S. CS</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MEET RITA — single video ============ -->
+<!--
+  HOW TO ADD YOUR VIDEO:
+  Upload to YouTube (unlisted is fine) or Vimeo, then replace the
+  <div class="video-placeholder">...</div> block below with an iframe:
+
+    <iframe
+      src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
+      style="width:100%; height:100%; border:0;"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen></iframe>
+-->
+<section class="videos" id="videos">
+  <div class="section-inner">
+    <div class="section-header reveal" style="text-align:center; margin-left:auto; margin-right:auto;">
+      <div class="section-eyebrow" style="justify-content:center;">Meet your teacher</div>
+      <h2 class="section-title" style="margin-left:auto; margin-right:auto;">A quick hello,<br>so you know <span class="italic">who I am.</span></h2>
+      <p class="videos-intro" style="margin-left:auto; margin-right:auto;">Choosing a tutor for your kid is a trust decision. Two minutes with me before we ever talk.</p>
+    </div>
+
+    <div class="video-single reveal">
+      <div class="video-thumbnail">
+        <!-- REPLACE THIS PLACEHOLDER WITH YOUR <iframe> EMBED -->
+        <div class="video-placeholder">
+          <div class="play-button"></div>
+          <div class="video-placeholder-label">Video coming soon</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROGRAMS ============ -->
+<section id="programs">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Four programs</div>
+      <h2 class="section-title">Pick the right<br><span class="italic">starting point.</span></h2>
+    </div>
+
+    <div class="programs-list">
+
+      <!-- NEW: Intro to Cyber for beginners -->
+      <a href="#pricing" class="program-row reveal" data-hover>
+        <span class="program-num">01</span>
+        <div class="program-info">
+          <h3>Intro to Cybersecurity</h3>
+          <div class="program-meta">
+            <span class="program-tag">Total beginners · 11–17</span>
+            <span>For curious students unsure if they like it yet</span>
+          </div>
+        </div>
+        <div class="program-arrow">↗</div>
       </a>
-    </aside>
-  </section>
 
-  <!-- TICKER -->
-  <div class="ticker">
-    <div class="ticker-track">
-      <span>NICE Framework <span></span></span>
-      <span>OWASP Agentic Top 10 <span></span></span>
-      <span>GenAI Red Teaming <span></span></span>
-      <span>Cloud Security <span></span></span>
-      <span>Curriculum Patch <span></span></span>
-      <span>University of Pennsylvania <span></span></span>
-      <span>Cybersecurity Workforce <span></span></span>
-      <!-- duplicated for seamless loop -->
-      <span>NICE Framework <span></span></span>
-      <span>OWASP Agentic Top 10 <span></span></span>
-      <span>GenAI Red Teaming <span></span></span>
-      <span>Cloud Security <span></span></span>
-      <span>Curriculum Patch <span></span></span>
-      <span>University of Pennsylvania <span></span></span>
-      <span>Cybersecurity Workforce <span></span></span>
+      <a href="#pricing" class="program-row reveal delay-1" data-hover>
+        <span class="program-num">02</span>
+        <div class="program-info">
+          <h3>NCL Competition Prep</h3>
+          <div class="program-meta">
+            <span class="program-tag">Official registration</span>
+            <span>Cryptography · Forensics · Networks</span>
+          </div>
+        </div>
+        <div class="program-arrow">↗</div>
+      </a>
+
+      <a href="#pricing" class="program-row reveal delay-2" data-hover>
+        <span class="program-num">03</span>
+        <div class="program-info">
+          <h3>Computer Science Prep</h3>
+          <div class="program-meta">
+            <span class="program-tag">AP CSP · AP CSA · School coursework</span>
+            <span>Help with class, projects, and exam prep</span>
+          </div>
+        </div>
+        <div class="program-arrow">↗</div>
+      </a>
+
+      <a href="#pricing" class="program-row reveal delay-3" data-hover>
+        <span class="program-num">04</span>
+        <div class="program-info">
+          <h3>AI Research Mentorship</h3>
+          <div class="program-meta">
+            <span class="program-tag">High school only · 1 at a time</span>
+            <span>For college-bound students with focus</span>
+          </div>
+        </div>
+        <div class="program-arrow">↗</div>
+      </a>
     </div>
   </div>
+</section>
 
-  <!-- ABOUT -->
-  <section id="about" class="reveal">
-    <div class="eyebrow">001 / About</div>
-    <h2 class="section-title">A practitioner working at the <em>seam</em> between AI security and workforce development.</h2>
+<!-- ============ PRICING ============ -->
+<section class="pricing" id="pricing">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Sessions & Pricing</div>
+      <h2 class="section-title">Three formats,<br><span class="italic">same teacher.</span></h2>
+      <p class="pricing-intro">Pick what fits your family. Every engagement starts with a free 20-minute call so I can recommend the right format and program for your kid.</p>
+    </div>
 
-    <div class="about-grid">
-      <div class="about-text">
-        <p>
-          My research and practice sit at the intersection of three accelerating shifts: the rapid integration of generative AI into critical infrastructure, the corresponding emergence of new attack surfaces (prompt injection, agentic exploits, model supply chain risks), and the structural lag in how the cybersecurity workforce is trained to meet them.
-        </p>
-        <p>
-          I work across frameworks — NICE for workforce mapping, OWASP for threat taxonomies, MITRE for adversary modeling — to design educational interventions that translate cutting-edge security research into something practitioners and students can actually act on. My current focus is the GenAI threat surface and how organizations build the human capacity to manage it.
-        </p>
-        <p>
-          I'm based in Washington, D.C., and I'm currently developing this work into a doctoral research agenda focused on AI security and cybersecurity education.
-        </p>
+    <div class="pricing-grid">
+      <div class="price-card reveal">
+        <div class="price-name">Online · 1-on-1</div>
+        <div class="price-format">Virtual · Nationwide</div>
+        <div class="price-amount">
+          <span class="price-currency">$</span><span class="price-number">100</span><span class="price-unit">/ hour</span>
+        </div>
+        <p class="price-starting">Starting rate</p>
+        <ul class="price-features">
+          <li><span class="check">→</span> Fully personalized plan</li>
+          <li><span class="check">→</span> Evening & weekend slots</li>
+          <li><span class="check">→</span> Notes sent to parents after each session</li>
+          <li><span class="check">→</span> Available anywhere in the U.S.</li>
+        </ul>
+        <a href="#" class="price-cta book-link" data-hover>
+          Book consultation <span class="arrow-mini">→</span>
+        </a>
       </div>
 
-      <div class="about-card">
-        <h3>At a glance</h3>
-        <div class="stat-row">
-          <span class="label">Education</span>
-          <span class="value">M.S., <em>UPenn</em></span>
+      <div class="price-card popular reveal delay-1">
+        <span class="popular-tag">Most Popular</span>
+        <div class="price-name">Small Group</div>
+        <div class="price-format">Virtual · 2–4 Students</div>
+        <div class="price-amount">
+          <span class="price-currency">$</span><span class="price-number">100</span><span class="price-unit">/ hour</span>
         </div>
-        <div class="stat-row">
-          <span class="label">Affiliation</span>
-          <span class="value">NICE Community of Interest</span>
+        <p class="price-starting">Per group — cost splits per student</p>
+        <ul class="price-features">
+          <li><span class="check">→</span> Bring friends, or get matched</li>
+          <li><span class="check">→</span> Great for NCL team prep</li>
+          <li><span class="check">→</span> Collaborative, more affordable</li>
+          <li><span class="check">→</span> Same plan, same attention</li>
+        </ul>
+        <a href="#" class="price-cta book-link" data-hover>
+          Book consultation <span class="arrow-mini">→</span>
+        </a>
+      </div>
+
+      <div class="price-card reveal delay-2">
+        <div class="price-name">In-Person · DMV</div>
+        <div class="price-format">DC · Maryland · Virginia</div>
+        <div class="price-amount">
+          <span class="price-currency">$</span><span class="price-number">100</span><span class="price-unit">/ hour</span>
         </div>
-        <div class="stat-row">
-          <span class="label">Open Source</span>
-          <span class="value">OWASP Contributor</span>
-        </div>
-        <div class="stat-row">
-          <span class="label">Speaking</span>
-          <span class="value">NICE Conference <em>2026</em></span>
-        </div>
-        <div class="stat-row">
-          <span class="label">Languages</span>
-          <span class="value">EN · FR · AR</span>
-        </div>
-        <div class="stat-row">
-          <span class="label">Based</span>
-          <span class="value">Washington, D.C.</span>
-        </div>
+        <p class="price-starting">Starting rate · DMV only</p>
+        <ul class="price-features">
+          <li><span class="check">→</span> Face-to-face sessions</li>
+          <li><span class="check">→</span> Libraries, cafés, or your home</li>
+          <li><span class="check">→</span> Best for hands-on learners</li>
+          <li><span class="check">→</span> Travel fee may apply outside DC</li>
+        </ul>
+        <a href="#" class="price-cta book-link" data-hover>
+          Book consultation <span class="arrow-mini">→</span>
+        </a>
       </div>
     </div>
-  </section>
+    <p class="pricing-note">Packages available for multi-session commitments — we'll figure out what makes sense on the call.</p>
+  </div>
+</section>
 
-  <!-- FOCUS AREAS -->
-  <section id="focus" class="reveal">
-    <div class="eyebrow">002 / Focus areas</div>
-    <h2 class="section-title">Four threads, one <em>through-line</em>.</h2>
+<!-- ============ FAQ ============ -->
+<section id="faq">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Questions parents ask</div>
+      <h2 class="section-title">Before<br>you <span class="italic">book.</span></h2>
+    </div>
 
-    <div class="focus-grid">
-      <div class="focus-card">
-        <div class="focus-num">→ 01</div>
-        <h3>GenAI <em>threat modeling</em></h3>
-        <p>
-          Adversarial techniques against language models and agentic systems — prompt injection, jailbreaks, indirect injection, model exfiltration — and what defending them looks like in practice.
-        </p>
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFAQ(this)" data-hover>
+          What ages and skill levels do you work with?
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-a"><p>Middle school through high school — roughly grades 6 through 12. Total beginners are welcome (that's literally what Intro to Cybersecurity is for). I also work with students who already know they want to compete or earn a cert.</p></div>
       </div>
-      <div class="focus-card">
-        <div class="focus-num">→ 02</div>
-        <h3>The NICE <em>Framework</em></h3>
-        <p>
-          Mapping evolving cybersecurity work roles, knowledge, skills, and tasks to actual training pathways — and arguing for new ones the framework hasn't yet captured.
-        </p>
+
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFAQ(this)" data-hover>
+          My kid has zero background. Is that okay?
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-a"><p>Yes — and honestly, that's most of the kids I work with. Intro to Cybersecurity is built for students who are curious but have never touched the field. We start with the basics, and if it clicks, we move on. If it doesn't, you've lost a few sessions and learned something about your kid. That's a fine outcome too.</p></div>
       </div>
-      <div class="focus-card">
-        <div class="focus-num">→ 03</div>
-        <h3>OWASP <em>contribution</em></h3>
-        <p>
-          Active contributor to the Agentic AI Top 10 and adjacent OWASP workstreams. Translating community-driven threat research into educational content for the next generation of defenders.
-        </p>
+
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFAQ(this)" data-hover>
+          What is the National Cyber League?
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-a"><p>It's a real cybersecurity competition where students solve hands-on challenges — cryptography, forensics, network analysis. Schools and colleges recognize it. I have official registration access, which most tutors don't, so my students can actually compete.</p></div>
       </div>
-      <div class="focus-card">
-        <div class="focus-num">→ 04</div>
-        <h3>The <em>Curriculum Patch</em></h3>
-        <p>
-          A framework for layering current threat content onto existing cybersecurity courses without waiting for textbooks to catch up — closing the gap between threat research and the classroom.
-        </p>
+
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFAQ(this)" data-hover>
+          How does the AI Research Mentorship work?
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-a"><p>It's one-on-one only, high school only, and I take one student at a time. We pick a real research question in AI and cybersecurity, work through it like an academic project, and end up with a real paper your student can submit with college applications. It's a multi-month commitment.</p></div>
       </div>
-      <div class="focus-card">
-        <div class="focus-num">→ 05</div>
-        <h3>Cloud security <em>education</em></h3>
-        <p>
-          Building cloud-native, scenario-based labs that mirror the environments graduates actually walk into — not the abstract networks of legacy curricula.
-        </p>
+
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFAQ(this)" data-hover>
+          How much does it cost?
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-a"><p>Sessions start at $100/hour, whether online, group, or in-person across the DMV. Group rates split among students, so per-kid it's lower. Packages are available if you commit to a stretch of sessions. We'll talk numbers honestly on the consultation.</p></div>
       </div>
-      <div class="focus-card">
-        <div class="focus-num">→ 06</div>
-        <h3>International <em>cooperation</em></h3>
-        <p>
-          Cybersecurity workforce development across the Francophone world, with particular interest in how frameworks like NICE adapt to national strategies and capacity-building goals.
-        </p>
+
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFAQ(this)" data-hover>
+          Online or in-person?
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-a"><p>Both work. In-person in the DC/MD/VA area, online anywhere in the U.S. A lot of my long-term students are virtual. For younger kids or very hands-on learners, in-person can be worth the trip.</p></div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFAQ(this)" data-hover>
+          What happens on the free consultation?
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-a"><p>About 20 minutes on a video call. Usually I talk to you first, then sometimes a few minutes with your student. I ask about goals, interests, and anything they've already tried. Then I tell you what I'd recommend — and if I don't think I'm the right fit, I'll say so.</p></div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- FEATURED TALK -->
-  <section id="talk" class="talk-section reveal">
-    <div class="container">
-      <div>
-        <div class="eyebrow">003 / Featured</div>
-        <h2 class="section-title">Speaking at <em>NICE</em> 2026.</h2>
-        <p style="font-size:1.05rem; max-width:38ch; line-height:1.65; color: rgba(244,241,234,0.8); margin-bottom: 1.5rem;">
-          The NICE Conference convenes the cybersecurity education and workforce community in Philadelphia each year. My session focuses on how K-12 and early-career cybersecurity programs must evolve to meet a threat landscape now defined by cloud-native infrastructure and generative AI.
-        </p>
-        <p style="font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent);">
-          June 1–3, 2026 · Philadelphia, PA
-        </p>
-      </div>
+<!-- ============ FINAL CTA ============ -->
+<section class="final-cta">
+  <div class="final-cta-inner reveal">
+    <h2>Let's see if<br>it's a <span class="italic">good fit.</span></h2>
+    <p>One 20-minute call. I'll listen, ask a few questions, and tell you honestly whether I can help.</p>
+    <a href="#" class="btn-magnetic book-link" data-magnetic data-hover>
+      Book a free consultation
+      <span class="arrow"></span>
+    </a>
+    <p class="final-email">Prefer email? <a href="mailto:sabri@ritacyber.com" data-hover>sabri@ritacyber.com</a></p>
+  </div>
+</section>
 
-      <div class="talk-card">
-        <div class="conference-name">NICE Conference / 2026</div>
-        <h3>Future-Ready K-12 Cybersecurity: Cloud, GenAI, and the <em>Curriculum Patch</em></h3>
-        <div class="talk-meta">
-          <span>Session · 50 min</span>
-          <span>Practitioner Track</span>
-        </div>
-        <p>
-          A session on closing the lag between the cybersecurity threat landscape and the curricula meant to prepare people for it. I introduce the <strong>Curriculum Patch</strong> framework — a method for layering current threat content onto existing courses — and walk through two student-facing artifacts I've developed: a structured <strong>Red Team Model for GenAI</strong> and the <strong>Bank Heist Lab</strong>, an incident response simulation built around a modern, AI-augmented attack chain.
-        </p>
-        <div class="talk-frameworks">
-          <span class="framework-pill">NICE Framework</span>
-          <span class="framework-pill">OWASP LLM Top 10</span>
-          <span class="framework-pill">MITRE ATLAS</span>
-          <span class="framework-pill">CISA</span>
-        </div>
-      </div>
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="#" class="logo">
+        <span class="logo-mark">C</span>
+        CyberScholars
+      </a>
+      <p>Cybersecurity tutoring for middle and high school students, taught by a full-time DC teacher. DMV area and online nationwide.</p>
+      <a href="mailto:sabri@ritacyber.com" class="email" data-hover>sabri@ritacyber.com</a>
     </div>
-  </section>
-
-  <!-- CREDENTIALS -->
-  <section id="credentials" class="reveal">
-    <div class="eyebrow">004 / Credentials &amp; affiliations</div>
-    <h2 class="section-title">The <em>receipts</em>.</h2>
-
-    <div class="creds-grid">
-      <div class="cred-card">
-        <div class="cred-mark">P</div>
-        <div class="cred-content">
-          <h4>M.S., Computer Science</h4>
-          <div class="cred-org">University of Pennsylvania</div>
-          <p>Graduate work in computer science with concentration relevant to security, systems, and applied research.</p>
-        </div>
-      </div>
-      <div class="cred-card">
-        <div class="cred-mark">N</div>
-        <div class="cred-content">
-          <h4>NICE Community of Interest Member</h4>
-          <div class="cred-org">NIST · National Initiative for Cybersecurity Education</div>
-          <p>Active participant in the federal community shaping the U.S. cybersecurity workforce framework and standards.</p>
-        </div>
-      </div>
-      <div class="cred-card">
-        <div class="cred-mark">O</div>
-        <div class="cred-content">
-          <h4>OWASP Contributor</h4>
-          <div class="cred-org">Agentic AI Top 10 · LLM Top 10 workstreams</div>
-          <p>Contributing to the open-source threat taxonomies that the global AI security community is building in real time.</p>
-        </div>
-      </div>
-      <div class="cred-card">
-        <div class="cred-mark">N</div>
-        <div class="cred-content">
-          <h4>NICE Conference 2026 Speaker</h4>
-          <div class="cred-org">Philadelphia · June 2026</div>
-          <p>Selected to present on AI-era cybersecurity curriculum design and the Curriculum Patch framework.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PULL QUOTE -->
-  <section class="quote-section reveal">
-    <blockquote>
-      The threat surface evolves in months. The training pipeline evolves in years. <em>That gap is the work.</em>
-    </blockquote>
-    <div class="quote-attribution">— Rita Sabri</div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact" class="contact-section reveal">
-    <div class="container">
-      <div class="contact-text">
-        <div class="eyebrow">005 / Get in touch</div>
-        <h2 class="section-title">Open to <em>research</em>, <em>speaking</em>, and <em>collaboration</em>.</h2>
-        <p>
-          I'm currently exploring partnerships in cybersecurity workforce development, AI security education, and international capacity-building — particularly with institutions working on national or regional digital strategy.
-        </p>
-        <p>
-          If your work touches the NICE Framework, GenAI security, or building cybersecurity talent pipelines: I'd love to hear from you.
-        </p>
-      </div>
-
-      <ul class="contact-list">
-        <li>
-          <span class="label">Email</span>
-          <a class="contact-link" href="mailto:hello@ritacyber.com">hello@ritacyber.com</a>
-        </li>
-        <li>
-          <span class="label">LinkedIn</span>
-          <a class="contact-link" href="#" target="_blank" rel="noopener">/in/ritasabri</a>
-        </li>
-        <li>
-          <span class="label">GitHub</span>
-          <a class="contact-link" href="#" target="_blank" rel="noopener">@ritacyber</a>
-        </li>
-        <li>
-          <span class="label">Conferences</span>
-          <a class="contact-link" href="#talk">NICE 2026 · Philadelphia</a>
-        </li>
+    <div class="footer-col">
+      <h4>Navigate</h4>
+      <ul>
+        <li><a href="#about" data-hover>About</a></li>
+        <li><a href="#videos" data-hover>Meet Rita</a></li>
+        <li><a href="#faq" data-hover>FAQ</a></li>
       </ul>
     </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="container">
-      <a href="#" class="logo">Rita<span class="dot" style="color: var(--accent);">.</span>Cyber</a>
-      <p>© 2026 Rita Sabri · Washington, D.C.</p>
+    <div class="footer-col">
+      <h4>Programs</h4>
+      <ul>
+        <li><a href="#programs" data-hover>Intro to Cyber</a></li>
+        <li><a href="#programs" data-hover>NCL Prep</a></li>
+        <li><a href="#programs" data-hover>CS Prep</a></li>
+        <li><a href="#programs" data-hover>AI Research</a></li>
+      </ul>
     </div>
-  </footer>
+    <div class="footer-col">
+      <h4>Get started</h4>
+      <ul>
+        <li><a href="#" class="book-link" data-hover>Book free consultation</a></li>
+        <li><a href="mailto:sabri@ritacyber.com" data-hover>Email Rita</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 CyberScholars. All rights reserved.</span>
+    <span>Made in Washington, DC</span>
+  </div>
+</footer>
 
-  <script>
-    // simple intersection observer for reveal animations
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
+<script>
+  // =================================================================
+  // 👇 UPDATE THIS ONE LINE WITH YOUR CALENDLY LINK 👇
+  // =================================================================
+  const CALENDLY_URL = "https://calendly.com/YOUR-USERNAME/free-consultation";
+  // =================================================================
+
+  // Wire all "book" buttons to Calendly
+  document.querySelectorAll('.book-link').forEach(link => {
+    link.setAttribute('href', CALENDLY_URL);
+    link.setAttribute('target', '_blank');
+    link.setAttribute('rel', 'noopener noreferrer');
+  });
+
+  // Nav scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Mobile menu
+  function toggleMenu() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+  document.querySelectorAll('#navLinks a').forEach(a => {
+    a.addEventListener('click', () => {
+      document.getElementById('navLinks').classList.remove('open');
+    });
+  });
+
+  // FAQ
+  function toggleFAQ(btn) {
+    btn.parentElement.classList.toggle('open');
+  }
+
+  // Reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Counters
+  const counterIo = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const el = e.target;
+        const target = parseInt(el.dataset.target, 10);
+        const duration = 1800;
+        const start = performance.now();
+        function tick(now) {
+          const progress = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          el.textContent = Math.floor(eased * target);
+          if (progress < 1) requestAnimationFrame(tick);
+          else el.textContent = target;
         }
-      });
-    }, { threshold: 0.1 });
+        requestAnimationFrame(tick);
+        counterIo.unobserve(el);
+      }
+    });
+  }, { threshold: 0.4 });
+  document.querySelectorAll('.counter').forEach(c => counterIo.observe(c));
 
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-  </script>
+  // Cursor
+  const dot = document.querySelector('.cursor-dot');
+  const ring = document.querySelector('.cursor-ring');
+  let mouseX = 0, mouseY = 0;
+  let ringX = 0, ringY = 0;
+
+  window.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    dot.style.left = mouseX + 'px';
+    dot.style.top = mouseY + 'px';
+  });
+
+  function animateRing() {
+    ringX += (mouseX - ringX) * 0.18;
+    ringY += (mouseY - ringY) * 0.18;
+    ring.style.left = ringX + 'px';
+    ring.style.top = ringY + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  document.querySelectorAll('[data-hover], a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => ring.classList.add('hover'));
+    el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
+  });
+
+  // Magnetic buttons
+  document.querySelectorAll('[data-magnetic]').forEach(btn => {
+    btn.addEventListener('mousemove', (e) => {
+      const rect = btn.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      btn.style.transform = `translate(${x * 0.25}px, ${y * 0.4}px)`;
+    });
+    btn.addEventListener('mouseleave', () => {
+      btn.style.transform = '';
+    });
+  });
+</script>
 
 </body>
 </html>
