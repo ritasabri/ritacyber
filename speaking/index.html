@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Speaking & Research — Rita Cyber</title>
+<meta name="description" content="K-12 cybersecurity and AI security speaker. NICE Conference 2026. OWASP contributor. Practitioner whitepaper on GenAI curriculum forthcoming." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/shared.css">
+
+<style>
+  .page-hero {
+    padding: 180px 40px 100px;
+    position: relative;
+    overflow: hidden;
+  }
+  .page-hero-bg { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+  .page-hero-bg::before {
+    content: '';
+    position: absolute;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: var(--terracotta);
+    filter: blur(80px);
+    opacity: 0.22;
+    top: -120px; right: -100px;
+    animation: drift 24s ease-in-out infinite;
+  }
+  .page-hero-bg::after {
+    content: '';
+    position: absolute;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: var(--forest);
+    filter: blur(80px);
+    opacity: 0.18;
+    bottom: -150px; left: -100px;
+    animation: drift 28s ease-in-out infinite reverse;
+  }
+  @keyframes drift {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(30px, -20px) scale(1.05); }
+  }
+
+  .page-hero-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  .page-hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(48px, 8vw, 110px);
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -3px;
+    color: var(--ink);
+    margin-top: 32px;
+    margin-bottom: 40px;
+    max-width: 1100px;
+  }
+  .page-hero h1 .italic { font-style: italic; color: var(--terracotta); font-weight: 400; }
+
+  .page-hero-lede {
+    font-size: 20px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    max-width: 640px;
+  }
+
+  /* FEATURED TALK */
+  .featured-talk {
+    padding: 120px 40px;
+    background: var(--bg-warm);
+    border-top: 1px solid var(--line-soft);
+  }
+
+  .featured-inner { max-width: 1400px; margin: 0 auto; }
+
+  .talk-card {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    background: var(--ink);
+    color: var(--bg);
+    border-radius: 20px;
+    overflow: hidden;
+    margin-top: 64px;
+    box-shadow: 0 40px 80px -40px rgba(15,23,20,0.4);
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+  }
+
+  .talk-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 50px 100px -40px rgba(15,23,20,0.5);
+  }
+
+  .talk-meta-side {
+    padding: 56px 48px;
+    background: var(--terracotta);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .talk-meta-side::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at bottom right, rgba(255,255,255,0.15), transparent 60%);
+    pointer-events: none;
+  }
+
+  .talk-conference {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 14px;
+    opacity: 0.9;
+    margin-bottom: 12px;
+    position: relative;
+  }
+
+  .talk-date {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(48px, 6vw, 80px);
+    font-weight: 300;
+    line-height: 0.95;
+    letter-spacing: -2px;
+    margin-bottom: 10px;
+    position: relative;
+  }
+
+  .talk-location {
+    font-size: 14px;
+    opacity: 0.9;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+    position: relative;
+  }
+
+  .talk-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 500;
+    padding: 10px 16px;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 999px;
+    align-self: flex-start;
+    position: relative;
+  }
+
+  .talk-status::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: white;
+    animation: blink 2s ease-in-out infinite;
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .talk-content { padding: 56px 48px; }
+
+  .talk-eyebrow {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--terracotta);
+    margin-bottom: 20px;
+  }
+
+  .talk-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(28px, 3.8vw, 44px);
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    margin-bottom: 24px;
+  }
+  .talk-title .italic { font-style: italic; color: var(--terracotta); font-weight: 400; }
+
+  .talk-abstract {
+    font-size: 16px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 32px;
+  }
+
+  .talk-tags {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 36px;
+  }
+
+  .talk-tag {
+    font-size: 12px;
+    padding: 7px 14px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 999px;
+    color: rgba(255,255,255,0.85);
+    letter-spacing: 0.3px;
+  }
+
+  .btn-on-dark {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 28px;
+    background: var(--bg);
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.4px;
+    border-radius: 999px;
+    transition: all 0.3s;
+  }
+  .btn-on-dark:hover {
+    background: var(--terracotta);
+    color: white;
+  }
+
+  /* RESEARCH GRID */
+  .research-section { padding: 140px 40px; }
+
+  .research-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-top: 80px;
+  }
+
+  .research-item {
+    background: var(--paper);
+    border: 1px solid var(--line-soft);
+    border-radius: 16px;
+    padding: 40px 36px;
+    transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .research-item::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top right, rgba(217, 98, 57, 0.1), transparent 50%);
+    opacity: 0;
+    transition: opacity 0.5s;
+    z-index: -1;
+  }
+
+  .research-item:hover {
+    transform: translateY(-4px);
+    border-color: var(--terracotta);
+  }
+  .research-item:hover::before { opacity: 1; }
+
+  .research-status {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--terracotta);
+    margin-bottom: 16px;
+  }
+
+  .research-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(22px, 2.4vw, 30px);
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+    margin-bottom: 16px;
+    color: var(--ink);
+  }
+
+  .research-desc {
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.65;
+    margin-bottom: 24px;
+  }
+
+  .research-target {
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--muted);
+  }
+
+  /* TOPICS */
+  .topics-section {
+    padding: 140px 40px;
+    background: var(--bg-warm);
+  }
+
+  .topics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 64px;
+  }
+
+  .topic {
+    padding: 36px 32px;
+    background: var(--paper);
+    border-radius: 12px;
+    border-left: 3px solid var(--terracotta);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  .topic:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px -20px rgba(15,23,20,0.15);
+  }
+
+  .topic h4 {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: -0.4px;
+    margin-bottom: 12px;
+    color: var(--ink);
+  }
+
+  .topic p {
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+
+  /* BOOK ME */
+  .book-me {
+    padding: 160px 40px;
+    background: var(--ink);
+    color: var(--bg);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .book-me::before, .book-me::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.2;
+  }
+  .book-me::before { width: 500px; height: 500px; background: var(--terracotta); top: -200px; right: -100px; }
+  .book-me::after { width: 400px; height: 400px; background: var(--gold); bottom: -150px; left: -100px; opacity: 0.15; }
+
+  .book-me-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  .book-me h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(40px, 5.5vw, 72px);
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -2px;
+    margin-bottom: 28px;
+  }
+  .book-me h2 .italic { font-style: italic; color: var(--terracotta); font-weight: 400; }
+
+  .book-me p {
+    font-size: 18px;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto 48px;
+  }
+
+  .book-me-facts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    max-width: 780px;
+    margin: 0 auto 48px;
+  }
+
+  .fact {
+    padding: 24px 20px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+  }
+
+  .fact .k {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 10px;
+  }
+
+  .fact .v {
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    font-weight: 400;
+    color: var(--bg);
+  }
+
+  .btn-magnetic-light {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    padding: 22px 36px;
+    background: var(--bg);
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    border-radius: 999px;
+    transition: transform 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .btn-magnetic-light::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: var(--terracotta);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+    z-index: -1;
+  }
+  .btn-magnetic-light:hover { color: white; }
+  .btn-magnetic-light:hover::before { transform: scaleX(1); }
+  .btn-magnetic-light .arrow {
+    display: inline-block;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--bg);
+    position: relative;
+    transition: transform 0.3s ease, background 0.3s ease;
+  }
+  .btn-magnetic-light .arrow::before {
+    content: '↗';
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px;
+  }
+  .btn-magnetic-light:hover .arrow { transform: rotate(45deg); background: var(--bg); color: var(--terracotta); }
+
+  @media (max-width: 960px) {
+    .page-hero { padding: 130px 24px 60px; }
+    .featured-talk { padding: 80px 24px; }
+    .talk-card { grid-template-columns: 1fr; }
+    .talk-meta-side, .talk-content { padding: 40px 32px; }
+    .research-section { padding: 80px 24px; }
+    .research-grid { grid-template-columns: 1fr; }
+    .topics-section { padding: 80px 24px; }
+    .topics-grid { grid-template-columns: 1fr; }
+    .book-me { padding: 90px 24px; }
+    .book-me-facts { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
+
+<nav id="nav">
+  <a href="/" class="logo">
+    <span class="logo-mark">R</span>
+    Rita Cyber
+  </a>
+  <button class="nav-toggle" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="/labs/">Labs</a></li>
+    <li><a href="/speaking/" class="active">Speaking</a></li>
+    <li><a href="/writing/">Writing</a></li>
+    <li><a href="/tutoring/">Tutoring</a></li>
+    <li><a href="mailto:sabri@ritacyber.com" class="btn-book" data-hover>Contact</a></li>
+  </ul>
+</nav>
+
+<header class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-inner">
+    <div class="section-eyebrow">Speaking · Research · OWASP</div>
+    <h1>What I'm <span class="italic">saying out loud</span> about K-12 AI security.</h1>
+    <p class="page-hero-lede">I speak at conferences, contribute to OWASP, and write practitioner research from a place most people in cybersecurity don't have access to: a full-time high school classroom. Below is what I'm working on now and what's next.</p>
+  </div>
+</header>
+
+<section class="featured-talk">
+  <div class="featured-inner">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Featured · Next up</div>
+      <h2 class="section-title">Coming to <span class="italic">Philadelphia</span><br>this June.</h2>
+    </div>
+
+    <div class="talk-card reveal delay-1">
+      <div class="talk-meta-side">
+        <div>
+          <div class="talk-conference">NICE Conference 2026</div>
+          <div class="talk-date">Jun 1–3</div>
+          <div class="talk-location">Philadelphia, PA</div>
+        </div>
+        <div class="talk-status">Confirmed Speaker</div>
+      </div>
+      <div class="talk-content">
+        <div class="talk-eyebrow">Featured Talk</div>
+        <h3 class="talk-title">Future-Ready K-12 Cybersecurity:<br><span class="italic">Cloud, GenAI, and the Curriculum Patch.</span></h3>
+        <p class="talk-abstract">High school cybersecurity curricula were written before ChatGPT existed. Most still are. This talk introduces the Curriculum Patch framework, walks through a Red Team Model for teaching GenAI security to teenagers, and demos the Bank Heist Lab — a browser-based prompt injection exercise students can run on a school Chromebook.</p>
+        <div class="talk-tags">
+          <span class="talk-tag">GenAI Security</span>
+          <span class="talk-tag">K-12 Curriculum</span>
+          <span class="talk-tag">OWASP LLM Top 10</span>
+          <span class="talk-tag">Hands-on Labs</span>
+        </div>
+        <a href="https://niceconference.org/" target="_blank" rel="noopener" class="btn-on-dark" data-hover>Conference details ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="research-section">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Research & Writing</div>
+      <h2 class="section-title">What I'm<br><span class="italic">publishing</span> next.</h2>
+    </div>
+
+    <div class="research-grid">
+      <div class="research-item reveal">
+        <div class="research-status">In progress · September 2026</div>
+        <h3 class="research-title">Practitioner Whitepaper: The Curriculum Patch</h3>
+        <p class="research-desc">Expanding the NICE talk into a peer-reviewable practitioner paper. Documents the framework, the Red Team Model, and student outcomes from the Bank Heist Lab, with implementation guidance for other K-12 educators.</p>
+        <div class="research-target">Target: JCERP · Sept 2026</div>
+      </div>
+
+      <div class="research-item reveal delay-1">
+        <div class="research-status">Contributor · Active</div>
+        <h3 class="research-title">OWASP LLM Top 10 — LLM07</h3>
+        <p class="research-desc">Contributing to the System Prompt Leakage workstream of the OWASP LLM Top 10. Bringing classroom evidence and student-tested attack examples into the working group's evolving guidance.</p>
+        <div class="research-target">Workstream: System Prompt Leakage</div>
+      </div>
+
+      <div class="research-item reveal">
+        <div class="research-status">Planning · Autumn 2027 entry</div>
+        <h3 class="research-title">PhD — Education, AI & Security</h3>
+        <p class="research-desc">Pursuing a PhD focused on K-12 AI literacy and cybersecurity curriculum design. Stanford GSE, UC Berkeley, UCSD, with possible Michigan and Wisconsin-Madison. Applications due November 2026.</p>
+        <div class="research-target">Doctoral · GSE & adjacent programs</div>
+      </div>
+
+      <div class="research-item reveal delay-1">
+        <div class="research-status">Ongoing</div>
+        <h3 class="research-title">Bilingual Curriculum Materials</h3>
+        <p class="research-desc">Open-source AP CSP, PLTW Cybersecurity, and CS Essentials worksheets with integrated English/Spanish supports for multilingual learners. A long-term project to make rigorous CS materials accessible across language backgrounds.</p>
+        <div class="research-target">Free · Educator-shared</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="topics-section">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Speaking Topics</div>
+      <h2 class="section-title">What I <span class="italic">actually</span><br>talk about.</h2>
+    </div>
+
+    <div class="topics-grid">
+      <div class="topic reveal">
+        <h4>The Curriculum Patch Framework</h4>
+        <p>How K-12 CS and cyber programs can iteratively absorb GenAI, cloud, and AI security without throwing out the standards they're held to.</p>
+      </div>
+      <div class="topic reveal delay-1">
+        <h4>Red Team Model for GenAI in Schools</h4>
+        <p>Teaching high schoolers to break LLMs on purpose — prompt injection, jailbreaks, system prompt leakage — and what they learn from it.</p>
+      </div>
+      <div class="topic reveal delay-2">
+        <h4>OWASP LLM Top 10, for Teachers</h4>
+        <p>Translating the most important industry framework for AI security into language and labs that work in a 45-minute class period.</p>
+      </div>
+      <div class="topic reveal">
+        <h4>Bilingual Cybersecurity Education</h4>
+        <p>What it takes to teach rigorous cybersecurity to multilingual classrooms — and why MLL students are an underserved cyber pipeline.</p>
+      </div>
+      <div class="topic reveal delay-1">
+        <h4>Building Browser-Only Cyber Labs</h4>
+        <p>For teachers without admin rights or budget. How to ship classroom labs on GitHub Pages that work on locked-down school networks.</p>
+      </div>
+      <div class="topic reveal delay-2">
+        <h4>K-12 to Industry Pipeline</h4>
+        <p>What employers, NICE, and CISA actually want from high school cyber programs — and the gap between that and what most programs offer.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="book-me">
+  <div class="book-me-inner reveal">
+    <div class="section-eyebrow" style="justify-content:center; color: var(--terracotta);">Book me to speak</div>
+    <h2>Let's get more <span class="italic">classrooms ready</span><br>for what's already here.</h2>
+    <p>I speak at K-12 conferences, EdTech events, security industry conferences, district professional development days, and teacher training programs. In English or French.</p>
+
+    <div class="book-me-facts">
+      <div class="fact">
+        <div class="k">Formats</div>
+        <div class="v">Keynote · Workshop · Panel</div>
+      </div>
+      <div class="fact">
+        <div class="k">Languages</div>
+        <div class="v">English · French</div>
+      </div>
+      <div class="fact">
+        <div class="k">Based in</div>
+        <div class="v">DC · Will fly</div>
+      </div>
+    </div>
+
+    <a href="mailto:sabri@ritacyber.com?subject=Speaking%20inquiry" class="btn-magnetic-light" data-magnetic data-hover>
+      Email speaker inquiry
+      <span class="arrow"></span>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="/" class="logo">
+        <span class="logo-mark">R</span>
+        Rita Cyber
+      </a>
+      <p>K-12 cybersecurity and AI security educator. Building the curriculum patch, one lab at a time.</p>
+      <a href="mailto:sabri@ritacyber.com" class="email" data-hover>sabri@ritacyber.com</a>
+    </div>
+    <div class="footer-col">
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="/labs/" data-hover>Labs</a></li>
+        <li><a href="/speaking/" data-hover>Speaking</a></li>
+        <li><a href="/writing/" data-hover>Writing</a></li>
+        <li><a href="/tutoring/" data-hover>Tutoring</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:sabri@ritacyber.com" data-hover>sabri@ritacyber.com</a></li>
+        <li><a href="https://github.com/" target="_blank" rel="noopener" data-hover>GitHub</a></li>
+        <li><a href="https://linkedin.com/" target="_blank" rel="noopener" data-hover>LinkedIn</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Press</h4>
+      <ul>
+        <li><a href="/speaking/" data-hover>Speaker info</a></li>
+        <li><a href="mailto:sabri@ritacyber.com?subject=Press%20inquiry" data-hover>Press inquiries</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Rita Sabri. All rights reserved.</span>
+    <span>Made in Washington, DC</span>
+  </div>
+</footer>
+
+<script src="/shared.js"></script>
+</body>
+</html>
