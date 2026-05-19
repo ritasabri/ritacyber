@@ -3,7 +3,7 @@
 // ================================================================
 
 // CALENDLY — keep in sync with /tutoring/index.html
-const CALENDLY_URL = "https://calendly.com/YOUR-USERNAME/free-consultation";
+const CALENDLY_URL = https://calendly.com/ritasabri00/30min";
 
 document.querySelectorAll('.book-link').forEach(link => {
   link.setAttribute('href', CALENDLY_URL);
