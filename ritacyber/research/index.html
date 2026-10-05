@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Research | Rita Sabri</title>
+<meta name="description" content="Stop Pressing 1 (measuring human oversight of AI agents), the Curriculum Patch, agentic AI threat modeling, and publications.">
+<link rel="canonical" href="https://ritacyber.com/research/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Rita Sabri">
+<meta property="og:title" content="Research by Rita Sabri">
+<meta property="og:description" content="Stop Pressing 1 (measuring human oversight of AI agents), the Curriculum Patch, agentic AI threat modeling, and publications.">
+<meta property="og:url" content="https://ritacyber.com/research/">
+<meta property="og:image" content="https://ritacyber.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#F7F8FB" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0C1126" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/newsreader-latin-standard-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/atkinson-hyperlegible-next-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="wordmark" href="../">Rita Sabri</a>
+    <nav class="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="../research/" aria-current="page">Research</a></li>
+        <li><a href="../talks/">Talks</a></li>
+        <li><a href="../teaching/">Teaching</a></li>
+        <li><a href="../labs/">Labs</a></li>
+        <li><a href="../cv/">CV</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<header class="page-head wrap">
+  <h1>Research</h1>
+  <p class="lede">I study the human side of AI security: whether the people who supervise AI agents understand what those agents are about to do, and how schools with very few resources can teach students to notice and question that behavior.</p>
+</header>
+
+<section class="section" aria-labelledby="overview">
+  <div class="wrap row">
+    <h2 class="margin-label" id="overview">Overview</h2>
+    <div class="measure">
+      <p>Most AI safeguards eventually come down to a person approving something: a code change, an email, a command. That approval is only as good as the person&rsquo;s understanding of it. In my classroom I see the pattern constantly. Students who grew up with AI assistants accept suggestions quickly, and adults adopting AI tools face the same pressure to keep moving.</p>
+      <p>My work has two connected threads. The first measures <mark>the gap between approving an agent&rsquo;s action and actually verifying it</mark>, and tests comprehension gates that ask people to show they understand an action before they can approve it. The second designs AI security instruction that works under real school constraints: no cloud budget, filtered networks, locked-down Chromebooks, and no dedicated security staff.</p>
+      <p>I draw on signal detection theory, formative assessment, and design-based research, and I release my instruments and labs openly so other teachers and researchers can reuse them.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="projects-title">
+  <div class="wrap row">
+    <h2 class="margin-label" id="projects-title">Projects</h2>
+    <div>
+      <article class="project" id="stop-pressing-1">
+        <h3>Stop Pressing 1: measuring oversight of AI agents</h3>
+        <p class="when">2025 to present. Independent research.</p>
+        <div class="project-body">
+          <p>When a person approves an AI agent&rsquo;s action, did they check what the agent will actually do? I call the failure &ldquo;the reading problem&rdquo; and treat it as a measurement question. Oversight fidelity is the match between what a person predicts an agent will do and what it actually does.</p>
+        </div>
+        <dl class="dl">
+          <dt>Instrument</dt>
+          <dd>A browser-only, fully scripted lab with no live model. Participants review six agent action requests across a code repository, an inbox, and an operations console. Three are seeded with real incident classes: a hidden <code>.env</code> edit that sends logs to an outside endpoint, a reply that quietly copies hundreds of recipients, and a typosquatted dependency. Evidence of each problem stays on screen the whole time.</dd>
+          <dt>Design</dt>
+          <dd>Three between-subjects conditions: passive confirmation (press 1), a generative gate where participants predict the agent&rsquo;s action before approving, and a quiz written by the agent itself. Responses are scored with signal detection measures, d&prime; and criterion c.</dd>
+          <dt>Hypotheses</dt>
+          <dd>
+            <ul>
+              <li>Under the generative gate, accuracy on ground-truth questions reaches 70% or higher.</li>
+              <li>Students who grew up with AI assistants and recent adopters both improve under the gate, with a larger gain for the first group.</li>
+              <li>The agent-written quiz performs like passive confirmation: verification theater.</li>
+            </ul>
+          </dd>
+          <dt>Outputs</dt>
+          <dd>Poster at the DEF CON 34 AI Village (August 2026) and a talk at DC State of the Stack (September 2026). The current <a href="https://ritasabri.github.io/stop-pressing-1-lab/">Stop Pressing 1 Lab</a> puts the gate into practice: students build a small Python tool with a simulated coding agent and answer questions about each change before they can approve it (<a href="https://github.com/ritasabri/stop-pressing-1-lab">source</a>).</dd>
+          <dt>Next</dt>
+          <dd>A classroom pilot, and a comprehension-gate service that coding agents can call before a person approves an action.</dd>
+        </dl>
+      </article>
+
+      <article class="project" id="curriculum-patch">
+        <h3>The Curriculum Patch: AI security education under real constraints</h3>
+        <p class="when">2024 to present. Cardozo Education Campus, DC Public Schools.</p>
+        <div class="project-body">
+          <p>Most high school cybersecurity curricula were written before generative AI. The Curriculum Patch is a constraint-driven way to update them in place: it adds cloud and generative AI security to the courses schools already teach, using only tools that work on a filtered school network.</p>
+        </div>
+        <dl class="dl">
+          <dt>Components</dt>
+          <dd>
+            <ul>
+              <li>The Red Team Model for GenAI, a sequence for teaching students to attack and defend language-model applications, aligned with the OWASP Top 10 for LLM Applications.</li>
+              <li>The <a href="../labs/#bank-heist">Bank Heist Lab</a>, an open-source prompt-injection simulator that runs entirely in the browser.</li>
+              <li>Cross-disciplinary retrofits that place security examples inside math, physics, ELA, and computer science lessons, each mapped to NICE Framework work roles.</li>
+            </ul>
+          </dd>
+          <dt>Evidence</dt>
+          <dd>Used with about 100 of my students in 2025&ndash;26. The Bank Heist Lab repository has been forked more than 25 times on GitHub, and teachers have used the materials after my talks.</dd>
+          <dt>Shared at</dt>
+          <dd>NICE Conference &amp; Expo 2026 and a NIST NICE webinar (September 2026). A session presenting twenty cross-disciplinary integrations is accepted for the NICE K12 Cybersecurity Education Conference (March 2027).</dd>
+          <dt>Writing</dt>
+          <dd>A single-author preprint framing the work as design-based research is in preparation.</dd>
+        </dl>
+      </article>
+
+      <article class="project" id="agentic-threats">
+        <h3>Threat modeling agentic AI</h3>
+        <p class="when">2026 to present. With the OWASP community.</p>
+        <div class="project-body">
+          <p>I contribute to the OWASP Top 10 for LLM Applications and the OWASP Agentic Security Initiative. My current work adapts the Agentic Top 10 to vision-and-action agents, the ones that read a screen and click, where an injected or hidden interface element can steer what the agent does. I&rsquo;ll present this threat model at Simply Cyber Con in November 2026.</p>
+        </div>
+      </article>
+
+      <article class="project" id="pipeline">
+        <h3>A cybersecurity pathway from high school to community college</h3>
+        <p class="when">2026 to present. With faculty at Prince George&rsquo;s Community College.</p>
+        <div class="project-body">
+          <p>Designing a pathway from Title I high schools in the DC region into community college cybersecurity programs. A practitioner white paper is in preparation for the <cite>Journal of Cybersecurity Education, Research and Practice</cite>.</p>
+        </div>
+      </article>
+
+      <article class="project" id="interpret-me">
+        <h3>Earlier: Interpret Me at SAFELab</h3>
+        <p class="when">2022 to 2023. SAFELab, Columbia University and University of Pennsylvania. Principal investigators: Desmond Patton and Siva Mathiyazhagan.</p>
+        <div class="project-body">
+          <p>As a human-centered AI product developer, I built an interactive platform that explains algorithmic bias and digital-footprint surveillance to young people, user-tested it with more than 30 Philadelphia youth, and contributed to research on human-in-the-loop interpretation of youth social media language.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="publications" aria-labelledby="publications-title">
+  <div class="wrap row">
+    <h2 class="margin-label" id="publications-title">Publications and presentations</h2>
+    <div>
+      <h3 class="subhead">Posters and conference sessions</h3>
+      <ul class="cites">
+        <li>Sabri, R. (2026, August). <cite>Stop Pressing 1: Measuring human rubber-stamping in agent oversight</cite> [Poster]. DEF CON 34 AI Village, Las Vegas, NV, United States.</li>
+        <li>Sabri, R. (2026, June). <cite>From Python to prompt engineering: Modernizing curricula for GenAI security</cite> [Conference session]. NICE Conference &amp; Expo, Philadelphia, PA, United States. <a href="https://niceconference.org/wp-content/uploads/2026/08/11.15am_-From-Python-to-Prompt-Engineering.pptx">Slides</a></li>
+      </ul>
+      <h3 class="subhead">In preparation</h3>
+      <ul class="cites">
+        <li>Sabri, R. <cite>The Curriculum Patch: Constraint-driven design for teaching cloud and GenAI security in under-resourced K-12 schools</cite> [Preprint]. <span class="status">In preparation.</span></li>
+        <li>Practitioner white paper on a K-12 to community college cybersecurity pathway, with faculty at Prince George&rsquo;s Community College, for the <cite>Journal of Cybersecurity Education, Research and Practice</cite>. <span class="status">In preparation.</span></li>
+      </ul>
+      <p class="more"><a href="../talks/">Full list of talks and events</a></p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site-footer" id="contact">
+  <div class="wrap">
+    <div class="footer-grid">
+      <h2>Contact</h2>
+      <div>
+        <p class="contact-lede">For research conversations, speaking invitations, or classroom collaborations, email me at <a href="mailto:sabri@ritacyber.com">sabri@ritacyber.com</a>.</p>
+        <ul class="contact-links">
+          <li><a href="mailto:sabri@ritacyber.com">Email</a></li>
+          <li><a href="https://github.com/ritasabri">GitHub</a></li>
+          <li><a href="https://www.linkedin.com/in/rita-sabri-b4225b107/">LinkedIn</a></li>
+          <li><a href="../cv/">CV</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="fineprint">
+      <span>&copy; <span data-year>2026</span> Rita Sabri, Washington, DC</span>
+      <span>Tutoring for students: <a href="../tutoring/">CyberScholars</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/site.js" defer></script>
+</body>
+</html>
